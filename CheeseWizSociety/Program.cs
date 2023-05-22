@@ -1,3 +1,8 @@
+using CheeseWizSociety.Repositories;
+using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+
 namespace CheeseWizSociety
 {
     public class Program
@@ -12,6 +17,15 @@ namespace CheeseWizSociety
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddTransient<IUsersRepository, UsersRepository>();
+            builder.Services.AddTransient<ICheesesRepository, CheesesRepository>();
+            builder.Services.AddTransient<IRecipesRepository, RecipesRepository>();
+
+            //FirebaseApp.Create(new AppOptions()
+            //{
+            //    Credential = GoogleCredential.FromFile(builder.Configuration["fbCredPath"]),
+            //});
 
             var app = builder.Build();
 
