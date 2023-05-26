@@ -17,11 +17,21 @@ import {
         signInWithPopup(auth, provider)
           .then((userCredential) => {
             const userAuth = {
-              email: userCredential.user.email,
-              displayName: userCredential.user.displayName,
-              uid: userCredential.user.uid,
-              type: "google",
+              Email: userCredential.user.email,
+              UserName: userCredential.fullName,
+              FirebaseUid: userCredential.user.uid,
+              ImageUrl: userCredential.imageUrl,
+              Type: "google",
             };
+
+            fetch("/api/Users", {
+              method: 'POST',
+              headers: {
+                'Content-type': "application/json",
+              },
+              body: JSON.stringify(userAuth)
+            })
+            
             // Add user object to localStorage
             localStorage.setItem("capstone_user", JSON.stringify(userAuth));
             // Navigate us back home

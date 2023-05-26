@@ -21,7 +21,8 @@ CREATE TABLE [users] (
   [FirebaseUid] nvarchar(255),
   [UserName] nvarchar(255),
   [Email] nvarchar(255),
-  [ImageUrl] nvarchar(255)
+  [ImageUrl] nvarchar(255),
+  [Type] nvarchar(255)
 )
 GO
 
@@ -110,9 +111,9 @@ ALTER TABLE [comments] ADD FOREIGN KEY ([PostId]) REFERENCES [posts] ([Id])
 GO
 
 
-INSERT INTO users (FirebaseUid, UserName, Email, ImageUrl) VALUES (NULL, 'Deanna Hollifield', 'dhollifield@gmail.com', NULL)
-INSERT INTO users (FirebaseUid, UserName, Email, ImageUrl) VALUES (NULL, 'Michael Hollifield', 'michaeljay@me.com', NULL)
-INSERT INTO users (FirebaseUid, UserName, Email, ImageUrl) VALUES (NULL, 'Chester Cheetah', 'cheesin@cheetos.com', 'https://i1.sndcdn.com/avatars-000576550848-tb8sib-t500x500.jpg')
+INSERT INTO users (FirebaseUid, UserName, Email, ImageUrl, [Type]) VALUES ('7K03kD0LX9Sai6fpDUX1yV1RyPo1', 'Deanna Hollifield', 'dhollifield@gmail.com', 'https://avatars.githubusercontent.com/u/107222205?s=400&u=e4891500412236171c27821dd29aa0bafe54fbdf&v=4', 'email')
+INSERT INTO users (FirebaseUid, UserName, Email, ImageUrl, [Type]) VALUES ('3iTgI1VBXNcFwQjhoJiqtVYq4U82', 'Michael Hollifield', 'michaeljay@me.com', 'https://media.licdn.com/dms/image/D4E03AQEBrkHM54_Cbw/profile-displayphoto-shrink_800_800/0/1678904634942?e=1690416000&v=beta&t=KSqAbfvSKqgqNC9Y_DRwIXOY_ZlkCJDoNQ2KLeCzrho', 'email')
+INSERT INTO users (FirebaseUid, UserName, Email, ImageUrl, [Type]) VALUES ('Dq18WBuucOX59fE15uRx8fwBUv92', 'Chester Cheetah', 'cheesin@cheetos.com', 'https://i1.sndcdn.com/avatars-000576550848-tb8sib-t500x500.jpg', 'email')
 
 INSERT INTO posts (Title, ImageUrl, Caption, DateCreated, UserId) VALUES ('Good Day for Cheddar', 'https://media.istockphoto.com/id/470427615/photo/organic-shredded-sharp-cheddar-cheese.jpg?s=612x612&w=0&k=20&c=oZ8R4WrLpg7qM_DCed3SLoNZ0ow77_2X9iOds-0NGtA=', 'I was having a horrible day. Nothing was going right. I left the house without my coffee and someone cut me off as I was merging onto 440. Then I remembered I had a delicious chunk of cheddar cheese in my lunchbox that was like manna from heaven in my time of need. There is nothing better than a good chunk of cheddar!','2023-04-13 13:23:44', 1)
 INSERT INTO posts (Title, ImageUrl, Caption, DateCreated, UserId) VALUES ('Good Queso', 'https://media.30seconds.com/tip/lg/Easy-Queso-Blanco-Cheese-Dip-Recipe-20403-5abbb6fd11-1615231444.jpg', 'Amigos in Spring Hill has the best queso around!', '2023-05-01 09:24:12', 3)

@@ -7,8 +7,9 @@ import "./Login.css";
 export const Register = () => {
   const [user, setUser] = useState({
     email: "",
-    fullName: "",
+    userName: "",
     password: "",
+    imageUrl: ""
   });
   let navigate = useNavigate();
 
@@ -63,8 +64,19 @@ export const Register = () => {
             type="text"
             id="password"
             className="form-control"
-            placeholder="Must Be 6 Characters"
+            placeholder="Must be 6 or more characters"
             required
+            autoFocus
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="imageUrl"> ImageUrl </label>
+          <input
+            onChange={updateUser}
+            type="text"
+            id="imageUrl"
+            className="form-control"
+            placeholder="Your image URL here"
             autoFocus
           />
         </fieldset>

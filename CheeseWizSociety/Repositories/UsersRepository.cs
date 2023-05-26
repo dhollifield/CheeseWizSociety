@@ -20,6 +20,7 @@ public class UsersRepository : BaseRepository, IUsersRepository
                                   ,UserName
                                   ,Email
                                   ,ImageUrl
+                                  ,Type
                              FROM Users";
 
                 var reader = cmd.ExecuteReader();
@@ -34,7 +35,8 @@ public class UsersRepository : BaseRepository, IUsersRepository
                         FirebaseUid = DbUtils.GetNullableString(reader, "FirebaseUid"),
                         UserName = DbUtils.GetString(reader, "UserName"),
                         Email = DbUtils.GetString(reader, "Email"),
-                        ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl")
+                        ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl"),
+                        Type = DbUtils.GetString(reader, "Type")
                     };
 
                     users.Add(user);
@@ -58,6 +60,7 @@ public class UsersRepository : BaseRepository, IUsersRepository
                                   ,UserName
                                   ,Email
                                   ,ImageUrl
+                                  ,Type
                              FROM Users
                             WHERE Id = @id";
 
@@ -73,10 +76,50 @@ public class UsersRepository : BaseRepository, IUsersRepository
                         FirebaseUid = DbUtils.GetNullableString(reader, "FirebaseUid"),
                         UserName = DbUtils.GetString(reader, "UserName"),
                         Email = DbUtils.GetString(reader, "Email"),
-                        ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl")
+                        ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl"),
+                        Type = DbUtils.GetString(reader, "Type")
                     };
                 }
                 conn.Close();
+                return user;
+            }
+        }
+    }
+
+    public Users GetUserByFirebaseUid(string FirebaseUid)
+    {
+        using (var conn = Connection)
+        {
+            conn.Open();
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+                           SELECT Id
+                                  ,FirebaseUid
+                                  ,UserName
+                                  ,Email
+                                  ,ImageUrl
+                                  ,Type
+                             FROM Users
+                            WHERE FirebaseUid = @FirebaseUid";
+
+                cmd.Parameters.AddWithValue("FirebaseUid", FirebaseUid);
+                var reader = cmd.ExecuteReader();
+                Users user = null;
+
+                while (reader.Read())
+                {
+                    user = new Users()
+                    {
+                        Id = DbUtils.GetInt(reader, "Id"),
+                        FirebaseUid = DbUtils.GetNullableString(reader, "FirebaseUid"),
+                        UserName = DbUtils.GetString(reader, "UserName"),
+                        Email = DbUtils.GetString(reader, "Email"),
+                        ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl"),
+                        Type = DbUtils.GetString(reader, "Type")
+                    };
+                }
+                reader.Close();
                 return user;
             }
         }
@@ -94,17 +137,20 @@ public class UsersRepository : BaseRepository, IUsersRepository
                                     (FirebaseUid
                                     ,UserName
                                     ,Email
-                                    ,ImageUrl)
+                                    ,ImageUrl
+                                    ,Type)
                              OUTPUT INSERTED.Id
                               VALUES (@FirebaseUid
                                     ,@UserName
                                     ,@Email
-                                    ,@ImageUrl)";
+                                    ,@ImageUrl
+                                    ,@Type)";
 
                 cmd.Parameters.AddWithValue("@FirebaseUid", user.FirebaseUid);
                 cmd.Parameters.AddWithValue("@UserName", user.UserName);
                 cmd.Parameters.AddWithValue("@Email", user.Email);
                 cmd.Parameters.AddWithValue("@ImageUrl", user.ImageUrl);
+                cmd.Parameters.AddWithValue("@Type", user.Type);
 
                 user.Id = (int)cmd.ExecuteScalar();
             }
@@ -124,6 +170,7 @@ public class UsersRepository : BaseRepository, IUsersRepository
                                     ,UserName = @UserName
                                     ,Email = @Email
                                     ,ImageUrl = @ImageUrl
+                                    ,Type = @Type
                                WHERE Id = @Id";
 
                 DbUtils.AddParameter(cmd, "@Id", user.Id);
@@ -131,6 +178,7 @@ public class UsersRepository : BaseRepository, IUsersRepository
                 DbUtils.AddParameter(cmd, "@UserName", user.UserName);
                 DbUtils.AddParameter(cmd, "@Email", user.Email);
                 DbUtils.AddParameter(cmd, "@ImageUrl", user.ImageUrl);
+                DbUtils.AddParameter(cmd, "@Type", user.Type);
 
                 cmd.ExecuteNonQuery();
             }

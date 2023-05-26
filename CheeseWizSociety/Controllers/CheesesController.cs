@@ -47,10 +47,14 @@ namespace CheeseWizSociety.Controllers
 
         // PUT api/<CheesesController>/5
         [HttpPut("{id}")]
-        public IActionResult UpdateCheese(Cheeses cheese)
+        public IActionResult UpdateCheese(Cheeses cheese, int id)
         {
-            _cheesesRepository.UpdateCheese(cheese);
-            return Created("/api/cheese/" + cheese.Id, cheese);
+            if (id != cheese.Id)
+            {
+                return BadRequest();
+            }
+                _cheesesRepository.UpdateCheese(cheese);
+                return Ok(cheese);
         }
 
         // DELETE api/<CheesesController>/5

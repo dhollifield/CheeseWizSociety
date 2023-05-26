@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { PhotoUpload } from "../photoStorage/PhotoUpload";
+// import { PhotoUpload } from "../photoStorage/PhotoUpload";
 import { logout } from "../helpers/logout";
 
 export const ApplicationViews = () => {
@@ -18,7 +18,7 @@ export const ApplicationViews = () => {
         Logout
       </button>
       {/* move this component to where you want your PhotoUpload */}
-      <PhotoUpload />
+      {/* <PhotoUpload /> */}
     </>
   );
 };

@@ -82,9 +82,9 @@ public class RecipesRepository : BaseRepository, IRecipesRepository
 	                            ,rt.Id AS RecipeTypeId
 	                            ,rt.RecipeType
                             FROM Recipes r
-                            JOIN Users u
+                       LEFT JOIN Users u
                               ON r.UserId = u.Id
-                            JOIN RecipeTypes rt
+                       LEFT JOIN RecipeTypes rt
                               ON r.RecipeTypeId = rt.Id
                            WHERE r.Id = @id";
 
@@ -170,7 +170,7 @@ public class RecipesRepository : BaseRepository, IRecipesRepository
                                 ,RecipeTypeId = @RecipeTypeId
                                 ,Ingredients = @Ingredients
                                 ,Instructions = @Instructions
-                                ,UserId = @UserId;
+                                ,UserId = @UserId
                            WHERE Id = @Id;";
 
                 DbUtils.AddParameter(cmd, "@RecipeName", recipe.RecipeName);
