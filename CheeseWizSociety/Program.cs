@@ -21,6 +21,8 @@ namespace CheeseWizSociety
             builder.Services.AddTransient<IUsersRepository, UsersRepository>();
             builder.Services.AddTransient<ICheesesRepository, CheesesRepository>();
             builder.Services.AddTransient<IRecipesRepository, RecipesRepository>();
+            builder.Services.AddTransient<IRecipeTypesRepository, RecipeTypesRepository>();
+            builder.Services.AddTransient<IPostsRepository, PostsRepository>();
 
             //FirebaseApp.Create(new AppOptions()
             //{

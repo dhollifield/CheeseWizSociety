@@ -25,11 +25,24 @@ namespace CheeseWizSociety.Controllers
             return Ok(_usersRepository.GetAllUsers());
         }
 
-        // GET api/<UsersController>/5
-        [HttpGet("{id}")]
-        public IActionResult GetUserById(int id)
+        //// GET api/<UsersController>/5
+        //[HttpGet("{id}")]
+        //public IActionResult GetUserById(int id)
+        //{
+        //    var user = _usersRepository.GetUserById(id);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //}
+
+        // GET api/<UsersController>/7K03kD0LX9Sai6fpDUX1yV1RyPo1
+        [HttpGet("{FirebaseUid}")]
+        public IActionResult GetUserByFirebaseUid(string FirebaseUid)
         {
-            var user = _usersRepository.GetUserById(id);
+            var user = _usersRepository.GetUserByFirebaseUid(FirebaseUid);
 
             if (user == null)
             {

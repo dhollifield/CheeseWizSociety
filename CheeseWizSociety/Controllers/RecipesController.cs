@@ -40,10 +40,10 @@ namespace CheeseWizSociety.Controllers
 
         // POST api/<RecipesController>
         [HttpPost]
-        public IActionResult Add(Recipes recipe)
+        public IActionResult AddRecipe(Recipes recipe)
         {
             _recipesRepository.AddRecipe(recipe);
-            return CreatedAtAction("Get", new { id = recipe.Id }, recipe);
+            return Ok(recipe);
         }
 
         // PUT api/<RecipesController>/5

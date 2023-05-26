@@ -25,11 +25,21 @@ import {
           }).then(
             function() {
               const userAuth = {
-                email: userCredential.user.email,
-                displayName: userObj.fullName,
-                uid: userCredential.user.uid,
-                type: "email",
+                Email: userCredential.user.email,
+                UserName: userObj.fullName,
+                FirebaseUid: userCredential.user.uid,
+                ImageUrl: userObj.imageUrl,
+                Type: "email",
               };
+
+              fetch("/api/Users", {
+                method: 'POST',
+                headers: {
+                  'Content-type': "application/json",
+                },
+                body: JSON.stringify(userAuth)
+              })
+
               // Saves the user to localstorage
               localStorage.setItem("capstone_user", JSON.stringify(userAuth));
               // Navigate us back to home
@@ -55,15 +65,22 @@ import {
         signInWithEmailAndPassword(auth, userObj.email, userObj.password)
           .then((userCredential) => {
             const userAuth = {
-              email: userCredential.user.email,
-              displayName: userCredential.user.displayName,
-              uid: userCredential.user.uid,
+              Email: userCredential.user.email,
+              UserName: userObj.fullName,
+              FirebaseUid: userCredential.user.uid,
+              ImageUrl: "",
               type: "email",
             };
+
+            fetch(`/api/Users/${userAuth.FirebaseUid}`)
+            .then((response) => {
+              userAuth.ImageUrl = response.ImageUrl
+            
             // Saves the user to localstorage
-            localStorage.setItem("capstone_user", JSON.stringify(userAuth));
+              localStorage.setItem("capstone_user", JSON.stringify(userAuth));
             // Navigate us back to home
-            navigate("/");
+              navigate("/")
+            });
           })
           .catch((error) => {
             console.log("Email SignIn Error");

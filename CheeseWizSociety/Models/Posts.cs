@@ -8,4 +8,6 @@ public class Posts
     public string Caption { get; set; }
     public DateTime DateCreated { get; set; }
     public int UserId { get; set; }
+    public Users User { get; set; }
+    public List<Comments> Comments { get; set; }
 }
