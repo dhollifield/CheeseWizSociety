@@ -19,6 +19,7 @@ import {
             const userAuth = {
               Email: userCredential.user.email,
               UserName: userCredential.fullName,
+              Id: userCredential.Id,
               FirebaseUid: userCredential.user.uid,
               ImageUrl: userCredential.imageUrl,
               Type: "google",
@@ -33,7 +34,7 @@ import {
             })
             
             // Add user object to localStorage
-            localStorage.setItem("capstone_user", JSON.stringify(userAuth));
+            localStorage.setItem("user", JSON.stringify(userAuth));
             // Navigate us back home
             navigate("/");
             console.log("you did it");
@@ -52,7 +53,7 @@ import {
       signOut(auth)
         .then(() => {
           // Remove user from localStorage
-          localStorage.removeItem("capstone_user");
+          localStorage.removeItem("user");
           // Navigate us back home
           navigate("/");
           console.log("Sign Out Success!");

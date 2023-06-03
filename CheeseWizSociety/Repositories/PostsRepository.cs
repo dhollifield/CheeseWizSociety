@@ -70,14 +70,16 @@ public class PostsRepository : BaseRepository, IPostsRepository
 	                            ,p.DateCreated
 								,p.UserId AS PostUserId
 
-	                            ,u.UserName
+	                            ,u.UserName AS PostUserName
 
 								,c.Id AS CommentId
 								,c.Comment
 								,c.UserId AS CommentUserId
+                                ,uc.UserName AS CommentUserName
                             FROM Posts p
                        LEFT JOIN Users u ON p.UserId = u.Id
 					   LEFT JOIN Comments c ON c.PostId = p.Id
+                       LEFT JOIN Users uc ON c.UserId = uc.Id
 						ORDER BY p.DateCreated";
 
                 var reader = cmd.ExecuteReader();
@@ -102,7 +104,7 @@ public class PostsRepository : BaseRepository, IPostsRepository
                             User = new Users()
                             {
                                 Id = DbUtils.GetInt(reader, "PostUserId"),
-                                UserName = DbUtils.GetString(reader, "UserName"),
+                                UserName = DbUtils.GetString(reader, "PostUserName"),
                             },
                             Comments = new List<Comments>()
                         };
@@ -117,7 +119,11 @@ public class PostsRepository : BaseRepository, IPostsRepository
                             Id = DbUtils.GetInt(reader, "CommentId"),
                             Comment = DbUtils.GetString(reader, "Comment"),
                             PostId = postId,
-                            UserId = DbUtils.GetInt(reader, "CommentUserId")
+                            UserId = DbUtils.GetInt(reader, "CommentUserId"),
+                            User = new Users()
+                            {
+                                UserName = DbUtils.GetString(reader, "CommentUserName")
+                            }
                         });
                     }
                 }
@@ -392,7 +398,7 @@ public class PostsRepository : BaseRepository, IPostsRepository
                                 ,Caption
                                 ,DateCreated
                                 ,UserId)
-                           OUPUT INSERTED.Id
+                          OUTPUT INSERTED.Id
                           VALUES (@Title
                                 ,@ImageUrl
                                 ,@Caption

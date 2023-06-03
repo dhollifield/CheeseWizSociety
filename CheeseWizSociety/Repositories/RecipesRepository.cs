@@ -121,6 +121,74 @@ public class RecipesRepository : BaseRepository, IRecipesRepository
         }
     }
 
+    public List<Recipes> Search(string criterion, bool sortDescending)
+    {
+        using (var conn = Connection)
+        {
+            conn.Open();
+            using (var cmd = conn.CreateCommand())
+            {
+                var sql =
+                    cmd.CommandText = @"SELECT r.Id
+	                            ,r.RecipeName
+	                            ,r.ImageUrl
+	                            ,r.Ingredients
+	                            ,r.Instructions
+	                            ,u.Id AS UserId
+                                ,u.UserName
+	                            ,rt.Id AS RecipeTypeId
+	                            ,rt.RecipeType
+                            FROM Recipes r
+                       LEFT JOIN Users u
+                              ON r.UserId = u.Id
+                       LEFT JOIN RecipeTypes rt
+                              ON r.RecipeTypeId = rt.Id
+                           WHERE r.Ingredients LIKE @Criterion
+                              OR r.RecipeName LIKE @Criterion";
+
+                if (sortDescending)
+                {
+                    sql += " ORDER BY r.RecipeName DESC";
+                }
+                else
+                {
+                    sql += " ORDER BY r.RecipeName";
+                }
+
+                cmd.CommandText = sql;
+                DbUtils.AddParameter(cmd, "@Criterion", $"%{criterion}%");
+                var reader = cmd.ExecuteReader();
+
+                var recipes = new List<Recipes>();
+                while (reader.Read())
+                {
+                    recipes.Add(new Recipes()
+                    {
+                        Id = DbUtils.GetInt(reader, "Id"),
+                        RecipeName = DbUtils.GetString(reader, "RecipeName"),
+                        ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                        Ingredients = DbUtils.GetString(reader, "Ingredients"),
+                        Instructions = DbUtils.GetString(reader, "Instructions"),
+                        RecipeTypeId = DbUtils.GetInt(reader, "RecipeTypeId"),
+                        RecipeType = new RecipeTypes()
+                        {
+                            Id = DbUtils.GetInt(reader, "RecipeTypeId"),
+                            RecipeType = DbUtils.GetString(reader, "RecipeType")
+                        },
+                        UserId = DbUtils.GetInt(reader, "UserId"),
+                        User = new Users()
+                        {
+                            Id = DbUtils.GetInt(reader, "UserId"),
+                            UserName = DbUtils.GetString(reader, "UserName")
+                        }
+                    });
+                }
+                reader.Close();
+                return recipes;
+            }
+        }
+    }
+
     public void AddRecipe(Recipes recipe)
     {
         using (var conn = Connection)

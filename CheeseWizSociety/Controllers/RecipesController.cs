@@ -38,6 +38,12 @@ namespace CheeseWizSociety.Controllers
             return Ok(recipe);
         }
 
+        [HttpGet("search")]
+        public IActionResult Search(string q, bool sortDesc)
+        {
+            return Ok(_recipesRepository.Search(q, sortDesc));
+        }
+
         // POST api/<RecipesController>
         [HttpPost]
         public IActionResult AddRecipe(Recipes recipe)

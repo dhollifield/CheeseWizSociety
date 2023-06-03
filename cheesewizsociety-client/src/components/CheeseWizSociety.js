@@ -16,7 +16,6 @@ export const CheeseWizSociety = () => {
         element={
           <Authorized>
             <>
-              <NavBar />
               <ApplicationViews />
             </>
           </Authorized>
