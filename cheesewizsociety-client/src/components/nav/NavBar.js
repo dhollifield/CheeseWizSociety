@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { navigate, useState } from 'react';
+import { logout } from '../helpers/logout';
+import logoNoBackground from "./logoNoBackground.png";
 import {
   Collapse,
   Navbar,
@@ -14,25 +16,30 @@ import {
   NavbarText,
 } from 'reactstrap';
 
-function NavBar(args) {
+function NavBar(args)  {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const onLogout = () => {
+    logout.logout(navigate);
+  };
+
   return (
-    <div>
+    <>
       <Navbar {...args}
         className="my-2"
         color="dark"
         dark
+        expand="sm"
       >
         <NavbarBrand href="/">
             <img 
                 alt="logo"
-                href="/Cheese-wiz-logo-with-out-background.png"
+                src={logoNoBackground}
                 style={{
-                    height: 40,
-                    width: 40
+                    height: 80,
+                    width: 80
                 }}
             />
         </NavbarBrand>
@@ -40,29 +47,34 @@ function NavBar(args) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href="/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
+            <NavLink href="/posts/">Posts</NavLink>
+            </NavItem>
+            <NavItem>
+            <NavLink href="/recipes/">Recipes</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options
               </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
+              <DropdownMenu end>
+                <DropdownItem>Home</DropdownItem>
+                <DropdownItem>Posts</DropdownItem>
+                <DropdownItem>Recipes</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>Reset</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
+          <NavbarText>A Society for Cheese Lovers</NavbarText>
+          <button type="submit" onClick={onLogout}>
+            Logout
+          </button>
         </Collapse>
       </Navbar>
-    </div>
+    </>
   );
 }
 

@@ -1,24 +1,28 @@
-import { useNavigate } from "react-router-dom";
-// import { PhotoUpload } from "../photoStorage/PhotoUpload";
-import { logout } from "../helpers/logout";
+import { Route, Routes, Outlet, useNavigate } from "react-router-dom";
+import Home from "../home/Home"
+import NavBar from "../nav/NavBar"
+import { AllPosts } from "../posts/AllPosts";
+import { Recipes } from "../recipes/Recipes";
+import { AddPost } from "../posts/AddPost";
+
 
 export const ApplicationViews = () => {
-  let navigate = useNavigate();
-
-  // Move this to where ever you end up putting your logout button
-  const onLogout = () => {
-    logout.logout(navigate);
-  };
 
   return (
-    <>
-      <h1>A Blank Page!!</h1>
-      {/* logout button */}
-      <button type="submit" onClick={onLogout}>
-        Logout
-      </button>
-      {/* move this component to where you want your PhotoUpload */}
-      {/* <PhotoUpload /> */}
-    </>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <NavBar />
+              <Outlet />
+          </>
+        }>
+
+          <Route path="/" element={ <Home /> } />
+          <Route path="posts" element={ < AllPosts /> } />
+          <Route path="addNewPost" element={ <AddPost /> } />
+          <Route path="recipes" element={ <Recipes /> } />
+        
+        </Route>
+      </Routes>
   );
 };

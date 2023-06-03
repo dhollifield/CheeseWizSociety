@@ -1,6 +1,6 @@
 {
   "name": "cheesewizsociety-client",
-  "proxy": "https://localhost:7241",
+  "proxy": "https://localhost:7241/api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

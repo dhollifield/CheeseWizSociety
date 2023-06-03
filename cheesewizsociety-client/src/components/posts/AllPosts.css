@@ -1,0 +1,17 @@
+.comment {
+    color: white;
+    background-color: grey;
+}
+
+.comment-user {
+    color: white;
+    background-color: grey;
+}
+
+.delete-post-button {
+    margin: 20px;
+}
+
+.edit-post-button {
+    margin: 20px;
+}

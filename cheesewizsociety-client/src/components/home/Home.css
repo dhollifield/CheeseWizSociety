@@ -1,0 +1,30 @@
+.home-title {
+    text-align: center;
+    margin: 60px;
+    font-size: 50px;
+}
+
+.cheese-carousel {
+    margin: auto;
+    width: 600px;
+    border: 10px solid black;
+    border-radius: 10px;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.cheese-img .carousel-item .carousel-item .active {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    object-position: center;
+    padding: 0 30px;
+}
+
+.cheese-text {
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(4px); 
+    margin: 30px 0 0 0;
+}
+

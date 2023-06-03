@@ -41,7 +41,7 @@ import {
               })
 
               // Saves the user to localstorage
-              localStorage.setItem("capstone_user", JSON.stringify(userAuth));
+              localStorage.setItem("user", JSON.stringify(userAuth));
               // Navigate us back to home
               navigate("/");
             },
@@ -72,14 +72,14 @@ import {
               type: "email",
             };
 
-            fetch(`/api/Users/${userAuth.FirebaseUid}`)
+            fetch(`https://localhost:7241/api/Users/${userAuth.FirebaseUid}`)
             .then((response) => {
-              userAuth.ImageUrl = response.ImageUrl
-            
-            // Saves the user to localstorage
-              localStorage.setItem("capstone_user", JSON.stringify(userAuth));
-            // Navigate us back to home
-              navigate("/")
+              response.json().then((json) => {
+                userAuth.ImageUrl = json.imageUrl
+                userAuth.Id = json.id
+                localStorage.setItem("user", JSON.stringify(userAuth));
+                navigate("/")
+              })
             });
           })
           .catch((error) => {
@@ -95,7 +95,7 @@ import {
       signOut(auth)
         .then(() => {
           // Remove the user from localstorage
-          localStorage.removeItem("capstone_user");
+          localStorage.removeItem("user");
           // Navigate us back to home
           navigate("/");
           console.log("Sign Out Success!");
