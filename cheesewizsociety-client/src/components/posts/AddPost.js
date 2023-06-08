@@ -24,9 +24,9 @@ export const AddPost = () => {
             setPosts(postsArray);
         };
         fetchPosts();
-        console.warn(cheeseUserObject)
+        // console.warn(cheeseUserObject)
     },
-    {});
+    []);
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault();
@@ -87,7 +87,8 @@ export const AddPost = () => {
                         update(copy)
                     }}
                 />
-            </FormGroup>  <FormGroup>
+            </FormGroup>  
+            <FormGroup>
                 <Label for="caption">
                     What would you like to say?
                 </Label>

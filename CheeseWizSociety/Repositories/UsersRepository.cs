@@ -86,6 +86,45 @@ public class UsersRepository : BaseRepository, IUsersRepository
         }
     }
 
+    public Users GetUserByEmail(string Email)
+    {
+        using (var conn = Connection)
+        {
+            conn.Open();
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+                           SELECT Id
+                                  ,FirebaseUid
+                                  ,UserName
+                                  ,Email
+                                  ,ImageUrl
+                                  ,Type
+                             FROM Users
+                            WHERE Email = @Email";
+
+                cmd.Parameters.AddWithValue("Email", Email);
+                var reader = cmd.ExecuteReader();
+                Users user = null;
+
+                while (reader.Read())
+                {
+                    user = new Users()
+                    {
+                        Id = DbUtils.GetInt(reader, "Id"),
+                        FirebaseUid = DbUtils.GetNullableString(reader, "FirebaseUid"),
+                        UserName = DbUtils.GetString(reader, "UserName"),
+                        Email = DbUtils.GetString(reader, "Email"),
+                        ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl"),
+                        Type = DbUtils.GetString(reader, "Type")
+                    };
+                }
+                reader.Close();
+                return user;
+            }
+        }
+    }
+
     public Users GetUserByFirebaseUid(string FirebaseUid)
     {
         using (var conn = Connection)
@@ -118,6 +157,67 @@ public class UsersRepository : BaseRepository, IUsersRepository
                         ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl"),
                         Type = DbUtils.GetString(reader, "Type")
                     };
+                }
+                reader.Close();
+                return user;
+            }
+        }
+    }
+
+    public Users GetUserByIdWithFavCheeses(int id)
+    {
+        using (var conn = Connection)
+        {
+            conn.Open();
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+                        SELECT u.Id AS UserId
+	                          ,u.UserName
+	                          ,u.Email
+	                          ,u.ImageUrl
+
+	                          ,c.Id AS CheeseId
+                              ,c.CheeseName
+	                          ,c.ImageUrl AS CheeseImg
+	                          ,c.[Description]
+                            FROM users u
+                            JOIN favoriteCheeses fc
+                            ON u.Id = fc.UserId
+                            JOIN cheeses c
+                            ON c.Id = fc.CheeseId
+                            WHERE u.Id = @Id";
+
+                cmd.Parameters.AddWithValue("@id", id);
+
+                var reader = cmd.ExecuteReader();
+
+                Users user = null;
+
+                while (reader.Read())
+                {
+                    if (user == null)
+                    {
+                        user = new Users
+                        {
+                            Id = DbUtils.GetInt(reader, "UserId"),
+                            UserName = DbUtils.GetString(reader, "UserName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            Cheese = new List<Cheeses>()
+                        };
+                    }
+
+                    if (DbUtils.IsNotDbNull(reader, "CheeseId"))
+                    {
+                        user.Cheese.Add(new Cheeses()
+                        {
+                            Id = DbUtils.GetInt(reader, "CheeseId"),
+                            CheeseName = DbUtils.GetString(reader, "CheeseName"),
+                            ImageUrl = DbUtils.GetString(reader, "CheeseImg"),
+                            Description = DbUtils.GetString(reader, "Description")
+                        });
+                    }
                 }
                 reader.Close();
                 return user;

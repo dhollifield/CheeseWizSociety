@@ -26,17 +26,17 @@ namespace CheeseWizSociety.Controllers
         }
 
         //// GET api/<UsersController>/5
-        //[HttpGet("{id}")]
-        //public IActionResult GetUserById(int id)
-        //{
-        //    var user = _usersRepository.GetUserById(id);
+        [HttpGet("GetUserWithFavCheese/{id}")]
+        public IActionResult GetUserByIdWithFavCheeses(int id)
+        {
+            var user = _usersRepository.GetUserByIdWithFavCheeses(id);
 
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(user);
-        //}
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
 
         // GET api/<UsersController>/7K03kD0LX9Sai6fpDUX1yV1RyPo1
         [HttpGet("{FirebaseUid}")]
@@ -51,32 +51,44 @@ namespace CheeseWizSociety.Controllers
             return Ok(user);
         }
 
+        //// GET api/<UsersController>/7K03kD0LX9Sai6fpDUX1yV1RyPo1
+        //[HttpGet("{Email}")]
+        //public IActionResult GetUserByEmail(string Email)
+        //{
+        //    var user = _usersRepository.GetUserByEmail(Email);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //}
+
         // POST api/<UsersController>
         [HttpPost]
         public IActionResult AddUser(Users user)
         {
             _usersRepository.AddUser(user);
-            return Created("/api/user/" + user.Id, user);
+            return Ok(user);
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(Users user)
+        public IActionResult UpdateUser(int id, Users user)
         {
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
             _usersRepository.UpdateUser(user);
-            return Created("/api/user/" + user.Id, user);
+            return NoContent();
         }
 
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
-            var user = _usersRepository.GetUserById(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
             _usersRepository.DeleteUser(id);
             return NoContent();
         }

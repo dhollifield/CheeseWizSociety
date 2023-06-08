@@ -62,8 +62,8 @@ const Home = () => {
     return (
         <>
         <h1 className="home-title">Sweet dreams are made of cheese.</h1>
-        <div className="cheese-carousel">
         <Carousel
+            className="cheese-carousel"
             activeIndex={activeIndex}
             dark
             next={next}
@@ -87,7 +87,6 @@ const Home = () => {
                 onClickHandler={next}
             />  
         </Carousel>
-        </div>
         </>
     );
 };
