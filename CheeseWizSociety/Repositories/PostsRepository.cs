@@ -28,7 +28,7 @@ public class PostsRepository : BaseRepository, IPostsRepository
                             FROM Posts p
                             JOIN Users u
                               ON p.UserId = u.Id
-                        ORDER BY p.DateCreated";
+                        ORDER BY p.DateCreated DESC";
 
                 var reader = cmd.ExecuteReader();
 
@@ -80,7 +80,7 @@ public class PostsRepository : BaseRepository, IPostsRepository
                        LEFT JOIN Users u ON p.UserId = u.Id
 					   LEFT JOIN Comments c ON c.PostId = p.Id
                        LEFT JOIN Users uc ON c.UserId = uc.Id
-						ORDER BY p.DateCreated";
+						ORDER BY p.DateCreated DESC";
 
                 var reader = cmd.ExecuteReader();
 

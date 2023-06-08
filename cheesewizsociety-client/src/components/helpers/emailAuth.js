@@ -32,7 +32,7 @@ import {
                 Type: "email",
               };
 
-              fetch("/api/Users", {
+              fetch("/Users", {
                 method: 'POST',
                 headers: {
                   'Content-type': "application/json",

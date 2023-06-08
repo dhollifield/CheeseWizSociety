@@ -7,10 +7,9 @@ import {
     CardBody,
     CardLink,
     CardTitle,
-    CardText,
-    ListGroup,
-    ListGroupItem
+    CardText
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export const Recipes = () => {
     const [recipes, setRecipes] = useState([])
@@ -36,6 +35,11 @@ export const Recipes = () => {
 
     return (
         <>
+        <div className="add-post-button">
+            <Link to={`/addNewRecipe`} className="add-new-post-link">
+                <button className="add-new-post-button">ADD A RECIPE</button>
+            </Link>
+        </div>
         <div className="input-group rounded">
             <input type="search" className="form-control rounded" placeholder="Search Recipes" aria-label="Search" aria-describedby="search-addon" />
             <span className="input-group-text border-0" id="search-addon">
@@ -68,7 +72,7 @@ export const Recipes = () => {
                     <CardText>
                         {recipe.instructions}
                     </CardText>
-                    Posted by:  
+                    Submitted by:  
                     <CardLink href="#">
                         {recipe.user.userName}
                     </CardLink>

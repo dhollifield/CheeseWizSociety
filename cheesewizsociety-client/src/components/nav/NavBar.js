@@ -15,6 +15,7 @@ import {
   DropdownItem,
   NavbarText,
 } from 'reactstrap';
+import "./NavBar.css"
 
 function NavBar(args)  {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,15 +61,13 @@ function NavBar(args)  {
                 Options
               </DropdownToggle>
               <DropdownMenu end>
-                <DropdownItem>Home</DropdownItem>
-                <DropdownItem>Posts</DropdownItem>
-                <DropdownItem>Recipes</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
+                <DropdownItem href="/">Home</DropdownItem>
+                <DropdownItem href="/posts/">Posts</DropdownItem>
+                <DropdownItem href="/recipes/">Recipes</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>A Society for Cheese Lovers</NavbarText>
+          <NavbarText className="navbar-text">A Society for Cheese Lovers</NavbarText>
           <button type="submit" onClick={onLogout}>
             Logout
           </button>

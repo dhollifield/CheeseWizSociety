@@ -10,6 +10,18 @@ export const FetchPostsWithComments = async () => {
     return postsArray
 }
 
+export const FetchPostByIdWithComments = async (id) => {
+    const response = await fetch (`/Posts/GetPostByIdWithComments/${id}`);
+    const post = await response.json();
+    return post
+}
+
+export const FetchPostById = async (id) => {
+    const response = await fetch (`/Posts/${id}`);
+    const post = await response.json();
+    return post
+}
+
 export const AddNewPost = async (newPost) => {
     const options = {
         method: "POST",
@@ -29,7 +41,7 @@ export const FetchPostsBySearch = async (criterion) => {
 }
 
 export const FetchCheeses = async () => {
-    const response = await fetch(`/Cheeses`)
+    const response = await fetch(`https://localhost:7241/api/Cheeses`)
     const cheesesArray = await response.json()
     return cheesesArray
 }
@@ -49,7 +61,19 @@ export const FetchRecipes = async () => {
 }
 
 export const FetchRecipesBySearch = async (criterion) => {
-    const response = await fetch(`/Recipes/search?q=${criterion}&sortDesc=true`)
+    const response = await fetch(`https://localhost:7241/api/Recipes/search?q=${criterion}&sortDesc=true`)
     const postsArray = await response.json()
     return postsArray
 }
+
+export const FetchUsers = async () => {
+    const response = await fetch (`https://localhost:7241/api/Users`)
+    const usersArray = await response.json()
+    return usersArray
+}
+export const FetchUserByFirebaseUid = async (firebaseUid) => {
+    const response = await fetch (`https://localhost:7241/api/Users/${firebaseUid}`);
+    const user = await response.json();
+    return user
+}
+
