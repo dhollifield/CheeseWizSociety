@@ -18,15 +18,15 @@ export const AddPost = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const postsArray = await FetchPosts()
-            setPosts(postsArray);
-        };
-        fetchPosts();
-        // console.warn(cheeseUserObject)
-    },
-    []);
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         const postsArray = await FetchPosts()
+    //         setPosts(postsArray);
+    //     };
+    //     fetchPosts();
+    //     // console.warn(cheeseUserObject)
+    // },
+    // []);
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault();

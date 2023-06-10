@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { formatInTimeZone } from "date-fns-tz";
+import "./AllPosts.css"
 
 export const AllPosts = () => {
     const currentUser = localStorage.getItem("user")
@@ -55,28 +56,3 @@ export const AllPosts = () => {
         </>
     )
 }
-
-// <Card>
-//     <CardLink>
-//         <img 
-//             alt="Card"
-//             src={
-//                 <PostCard 
-//                     key={post.id}
-//                     post={post}
-//                     cheeseUserObject={cheeseUserObject}
-//                     setPosts={setPosts}
-//                 />
-//             }
-//         />
-//     </CardLink>
-//         Posted by:
-//     <CardLink href={
-//         <PostCard 
-//         key={post.id}
-//         post={post}
-//         cheeseUserObject={cheeseUserObject}
-//         setPosts={setPosts}
-//     />
-//     }>{post.user.userName}</CardLink>
-// </Card>

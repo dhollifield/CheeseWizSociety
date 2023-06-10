@@ -25,7 +25,7 @@ export const ApplicationViews = () => {
           <Route path="posts" element={ < AllPosts /> } />
           <Route path="posts/:id" element={ <PostCard />} />
           <Route path="addNewPost" element={ <AddPost /> } />
-          <Route path="editPost/:id" element={ <EditPost /> } />
+          <Route path="editPost/:postId" element={ <EditPost /> } />
           <Route path="users/:id" element={<UserProfile /> }/>
           <Route path="recipes" element={ <Recipes /> } />
           <Route path="addNewRecipe" element={ <AddRecipe /> } />
