@@ -58,3 +58,8 @@
 .post-text {
     margin: 5px 10px;
 }
+
+.post-card {
+    max-width: 40%;
+    margin: auto;
+}

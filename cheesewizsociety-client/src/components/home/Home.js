@@ -45,12 +45,12 @@ const Home = () => {
 
     const slides = items.map((item) => {
         return (
-            <CarouselItem className="cheese-img"
+            <CarouselItem
                 onExiting={() => setAnimating(true)}
                 onExited={() => setAnimating(false)}
                 key={item.id}
             >
-                <img src={item.imageUrl} alt={item.cheeseName} />
+                <img className="cheese-img" src={item.imageUrl} alt={item.cheeseName} />
                 <CarouselCaption className="cheese-text"
                     captionText={item.description}
                     captionHeader={item.cheeseName}

@@ -77,3 +77,37 @@ export const FetchUserByFirebaseUid = async (firebaseUid) => {
     return user
 }
 
+export const FetchCommentsByPostId = async (postId) => {
+    const response = await fetch (`https://localhost:7241/api/Comments/${postId}`)
+    const comments = await response.json();
+    return comments
+}
+
+export const AddNewComment = async (newComment) => {
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newComment)
+    }
+    await fetch(`/Comments`, options)
+}
+
+export const DeleteComment = async (id) => {
+    const options = {
+        method: "DELETE",
+    };
+    await fetch (`https://localhost:7241/api/Comments/${id}`, options)
+}
+
+export const UpdateComment = async (id, comment) => {
+    const options = {
+        method: 'PUT', 
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(comment)
+    }
+    await fetch (`https://localhost:7241/api/Comments/${id}`, options)
+}

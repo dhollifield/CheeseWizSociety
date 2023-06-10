@@ -7,7 +7,7 @@ namespace CheeseWizSociety.Repositories
         void AddComment(Comments comment);
         void DeleteComment(int id);
         List<Comments> GetAllComments();
-        Comments GetCommentById(int id);
+        List<Comments> GetCommentsByPostId(int PostId);
         void UpdateComment(Comments comment);
     }
 }

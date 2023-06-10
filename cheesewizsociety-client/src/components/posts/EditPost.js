@@ -4,37 +4,48 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "./AllPosts.css";
 
 export const EditPost = () => {
-    const currentUser = localStorage.getItem("user")
-    const cheeseUserObject = JSON.parse(currentUser)
-    
-    const { id } = useParams();
+    console.log(useParams());
 
     const [editedPost, setEditedPost] = useState({
         title: '',
         imageUrl: '',
         caption: ''
     });
+    
+    const { postId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(
         () => {
-            console.log(id)
-            const fetchPostsById = async () => {
-                const response = await fetch(`https://localhost:7241/api/Posts/${id}`)
+            const fetchPostsById = async (postId) => {
+                const response = await fetch(`https://localhost:7241/api/Posts/${postId}`)
                 const post = await response.json()
-                setEditedPost(post[0])
+                setEditedPost(post)
               }
-              fetchPostsById()
-              console.log(editedPost)
+              fetchPostsById(postId)
+              console.log(postId)
         },
-        [id]
+        [postId]
     );
 
-    const navigate = useNavigate();
+    // const handleSaveButtonClick = async (event) => {
+    //     event.preventDefault();
 
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault();
+    //     const response = await fetch(`https://localhost:7241/api/Posts/${editedPost.id}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(editedPost),
+    //     });
+    //     await response.json();
+    //     navigate(`/Posts/${editedPost.id}`);
+    // }
 
-        const savePost = async (id) => {
+    const handleSaveButtonClick = (e) => {
+        e.preventDefault();
+
+        const savePost = async () => {
             const options = {
                 method: 'PUT',
                 headers: {
@@ -42,15 +53,18 @@ export const EditPost = () => {
                 },
                 body: JSON.stringify(editedPost)
             }
-            const response = await fetch (`https://localhost:7241/api/Posts/${id}`, options)
+            const response = await fetch (`https://localhost:7241/api/Posts/${editedPost.id}`, options)
             await response.json()
+            navigate(`/Posts/${editedPost.id}`)
         }
-        savePost()
-        navigate('/')
+        savePost();
     }
 
+    // return (
+    //     <div><h4>2</h4></div>
+    // )
     return (
-        <Form key={id}>
+        <Form key={editedPost.id}>
             <FormGroup>
                 <Label for="post-title">
                     Title
@@ -84,7 +98,8 @@ export const EditPost = () => {
                         setEditedPost(copy)
                     }}
                 />
-            </FormGroup>  <FormGroup>
+            </FormGroup>  
+            <FormGroup>
                 <Label for="caption">
                     What would you like to say?
                 </Label>
@@ -108,139 +123,6 @@ export const EditPost = () => {
         </Form>
     )
 }
-
-/* CODE BELOW IS FROM CALEB CURRY FROM ONLINE (YouTube) */
-// export const EditPost = () => {
-//     const { id } = useParams();
-//     const navigate = useNavigate();
-//     const [post, setPost] = useState();
-//     const [tempPost, setTempPost] = useState();
-//     const [notFound, setNotFound] = useState();
-//     const [changed, setChanged] = useState(false);
-
-
-//     useEffect(() => {
-//         console.log('post', post)
-//         console.log('tempPost', tempPost)
-//     });
-
-//     useEffect(() => {
-//         const url = `https://localhost:7241/api/Posts/${id}`;
-//         fetch(url)
-//         .then((response) => {
-//             if (response.status === 404) {
-//                 setNotFound(true);
-//             }
-
-//             return response.json();
-//         })
-//         .then((data) => {
-//             setPost(data.post);
-//             setTempPost(data.post);
-//         });
-//     }, []);
-
-//     function updatePost() {
-//         const url = `https://localhost:7241/api/Posts/${id}`;
-//         fetch(url, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(tempPost)
-//         }) 
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((data) => {
-//             setPost(data.post)
-//             setChanged(false);
-//             console.log(data);
-//         }).catch();
-//     }
-
-//     return (
-//         <>
-//             {notFound ? <p>The post with id {id} was not found</p> : null}
-
-//             {post ? (
-//                 <Form id={tempPost.id}>
-//                          <FormGroup>
-//                             <Label for="post-title">
-//                                  Title
-//                              </Label>
-//                              <Input
-//                                 id="post-title"
-//                                 name="post-title"
-//                                 placeholder={tempPost.title}
-//                                 type="text"
-//                                 value={tempPost.title}
-//                                 onChange={(e) => {
-//                                     setTempPost({
-//                                         ...tempPost,
-//                                         title: e.target.value, 
-//                                     });
-//                                 }}
-//                             />
-//                         </FormGroup>        
-//                         <FormGroup>
-//                             <Label for="image">
-//                                 ImageUrl
-//                             </Label>
-//                             <Input
-//                             id="image"
-//                             name="image"
-//                             placeholder={tempPost.imageUrl}
-//                             type="text"
-//                             value={tempPost.imageUrl}
-//                             onChange={(e) => {
-//                                 setChanged(true);
-//                                 setTempPost({
-//                                     ...tempPost,
-//                                     imageUrl: e.target.value, 
-//                                 });
-//                                 }}
-//                             />
-//                         </FormGroup>  
-//                         <FormGroup>
-//                             <Label for="caption">
-//                                 What would you like to say?
-//                             </Label>
-//                             <Input
-//                                 id="caption"
-//                                 name="caption"
-//                                 type="textarea"
-//                                 placeholder={tempPost.caption}
-//                                 rows="5"
-//                                 cols="10"
-//                                 value={tempPost.caption}
-//                                 onChange={(e) => {
-//                                     setChanged(true);
-//                                     setTempPost({
-//                                         ...tempPost,
-//                                         caption: e.target.value, 
-//                                     });
-//                                 }}
-//                             />
-//                         </FormGroup>
-//                         {changed ? 
-//                         <>
-//                             <Button 
-//                                 onClick={(e) => {
-//                                     setTempPost({...post})
-//                                     setChanged(false)
-//                                 }}>
-//                                     Cancel
-//                             </Button>
-//                             <Button
-//                                 onClick={updatePost}>Save</Button> 
-//                         </>
-//                         : null}
-//                     </Form>
-//             ) : null}
-//         </>
-//     )
-// }
     
     // const [post, setPost] = useState({
     //     title: '',

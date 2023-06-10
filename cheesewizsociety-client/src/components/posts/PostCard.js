@@ -1,47 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import {
+  Button,
   Card,
   CardBody,
   CardLink,
   CardTitle,
-  CardText,
-  ListGroup,
-  ListGroupItem
+  CardText
 } from "reactstrap";
-import { FetchPostByIdWithComments } from "../APIManager";
+import { formatInTimeZone } from "date-fns-tz";
+import "./AllPosts.css"
 
 export const PostCard = () => {
   const [post, setPost] = useState({
-    title: '',
-    imageUrl: '',
-    caption: '',
-    dateCreated: '',
-    user: [],
-    comments: [],
-  })
+    title: " ",
+    imageUrl: " ",
+    caption: " ",
+    dateCreated: " ",
+    user: {
+      userName: " ",
+    }
+  });
 
   const currentUser = localStorage.getItem("user")
   const cheeseUserObject = JSON.parse(currentUser)
 
   const { id } = useParams();
+
   const navigate = useNavigate();
 
-  const fetchPostByIdWithComments = async () => {
-    const data = await FetchPostByIdWithComments()
-    setPost(data)
-  }
+  const formatDateTime = (postDateTime) => {
+    const convertDateTime = new Date(postDateTime);
 
-  useEffect (() => {
-    fetchPostByIdWithComments()
-  },
-  [])
+    return formatInTimeZone(
+        convertDateTime,
+          "America/Chicago",
+          "LLLL d, yyy"
+        );
+    };
 
-  const editButton = (id) => {
+  useEffect(() => {
+    const fetchPost = async () => {
+      const response = await fetch (`https://localhost:7241/api/Posts/${id}`)
+      const post = await response.json()
+      setPost(post)
+    }
+    fetchPost(post)
+    console.warn(post)
+  }, [])
+
+  const editButton = (postId) => {
             console.log(id)
             return (
-              <Link to={`/editPost/${id}`}>
-                <button className="edit-post-button">Edit Post</button>                                       
+              <Link to={`/editPost/${postId}`} post={post} setPost={setPost}>
+                <button className="edit-post-button">
+                  Edit Post
+                </button>                                       
               </Link>
             );
         };
@@ -57,6 +71,14 @@ export const PostCard = () => {
         };
         
         return (
+          <>
+          <CardLink className="back-button">
+            <Button 
+                color="dark"
+                size="lg"
+                className="profile-back-button"
+                href={`/Posts`}>Back to Posts</Button>
+        </CardLink>
           <Card key={post.id}
             className="post-card"
           >
@@ -86,23 +108,14 @@ export const PostCard = () => {
                 <></>
               )}
             </div>
-            <ListGroup className="comment">
-              <CardTitle className="text-center">Comments</CardTitle>
-              {post.comments.map((comment) => {
-                return (
-                  <ListGroupItem className="comment-group">
-                    <a
-                      href={`/Users/${comment.user.id}`}
-                      className="comment-user"
-                    >
-                      {comment.user.userName}
-                    </a>
-                    :{comment.comment}
-                  </ListGroupItem>
-                );
-              })}
-            </ListGroup>
+            {/* <PostComments 
+              key={post.id}
+              post={post}
+              cheeseUserObject={cheeseUserObject}
+              setPost={setPost}
+            /> */}
           </Card>
+          </>
         );
       }
 

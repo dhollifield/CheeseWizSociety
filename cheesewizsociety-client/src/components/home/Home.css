@@ -1,26 +1,42 @@
 .home-title {
     text-align: center;
-    margin: 60px;
+    margin: 40px 0 5px 0;
     font-size: 50px;
 }
 
-.cheese-carousel {
+/* .cheese-carousel {
     margin: auto;
-    width: 600px;
+    width: auto;
+    display: flex; */
+
     /* border: 10px solid black;
     border-radius: 10px; */
     /* display: flex;
     flex-direction: column; */
-}
+/* } */
 
-.cheese-img .carousel-item .carousel-item .active {
+/* img {
+    align-content: center;
+} */
+.cheese-img {
+    width: auto;
+    margin-left: 750px;
+    margin-right: 750px;
+    margin-bottom: 50px;
+    padding: 10px 0 100px 0;
+    align-content: center;
+}
+div .carousel-item .carousel-item .active {
     width: 600px;
     margin-left: auto;
     margin-right: auto;
     object-fit: cover;
     object-position: center;
-    padding: 0 30px;
-}
+} 
+
+/* .carousel-item .carousel-item .active {
+    align-items: center;
+} */
 
 .cheese-text {
     background: rgba(255, 255, 255, 0.2); 

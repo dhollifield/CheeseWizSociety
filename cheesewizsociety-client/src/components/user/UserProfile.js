@@ -40,6 +40,7 @@ export const UserProfile = () => {
                         {user.cheese.map((c) => {
                             return <>
                                 <li>
+                                    {/* <a href={To Cheese Page w/ list of everyone who has cheese listed as a favorite} /> */}
                                     {c.cheeseName}
                                 </li>
                             </> 

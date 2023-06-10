@@ -206,11 +206,13 @@ public class PostsRepository : BaseRepository, IPostsRepository
 								,c.Id AS CommentId
 								,c.Comment
 								,c.UserId AS CommentUserId
+
+                                ,uc.UserName AS Commenter
                             FROM Posts p
                        LEFT JOIN Users u ON p.UserId = u.Id
 					   LEFT JOIN Comments c ON c.PostId = p.Id
-                           WHERE p.Id = @id
-						ORDER BY p.DateCreated";
+                       LEFT JOIN Users uc ON c.UserId = uc.Id
+                           WHERE p.Id = @id";
 
                 DbUtils.AddParameter(cmd, "@id", id);
 
@@ -250,7 +252,12 @@ public class PostsRepository : BaseRepository, IPostsRepository
                             Id = DbUtils.GetInt(reader, "CommentId"),
                             Comment = DbUtils.GetString(reader, "Comment"),
                             PostId = postId,
-                            UserId = DbUtils.GetInt(reader, "CommentUserId")
+                            UserId = DbUtils.GetInt(reader, "CommentUserId"),
+                            User = new Users()
+                            {
+                                Id = DbUtils.GetInt(reader, "CommentUserId"),
+                                UserName = DbUtils.GetString(reader, "Commenter")
+                            }
                         });
                     }
                 }
@@ -437,6 +444,7 @@ public class PostsRepository : BaseRepository, IPostsRepository
                 DbUtils.AddParameter(cmd, "@Caption", post.Caption);
                 DbUtils.AddParameter(cmd, "@DateCreated", post.DateCreated);
                 DbUtils.AddParameter(cmd, "@UserId", post.UserId);
+                DbUtils.AddParameter(cmd, "@id", post.Id);
 
                 cmd.ExecuteNonQuery();
             }

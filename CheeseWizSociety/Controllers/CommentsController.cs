@@ -26,10 +26,10 @@ namespace CheeseWizSociety.Controllers
         }
 
         // GET api/<CommentsController>/5
-        [HttpGet("{id}")]
-        public IActionResult GetCommentById(int id)
+        [HttpGet("{PostId}")]
+        public IActionResult GetCommentsByPostId(int PostId)
         {
-            var comment = _commentsRepository.GetCommentById(id);
+            var comment = _commentsRepository.GetCommentsByPostId(PostId);
 
             if (comment == null)
             {
