@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
-import Comment from "./Comment";
-import CommentForm from "./CommentForm";
+import { useParams, Link } from 'react-router-dom';
 import { 
     FetchCommentsByPostId, 
     AddNewComment,
@@ -8,114 +7,112 @@ import {
     UpdateComment
 } from "../APIManager";
 
-function PostComments({cheeseUserObject}) {
-    const [backendComments, setBackendComments] = useState([])
-    const [activeComment, setActiveComment] = useState(null)
-    const rootComments = backendComments
-        .filter((backendComment) => 
-            backendComment.id === null);
+function PostComments() {
+    const [comments, setComments] = useState({
+        comments: ''
+    })
 
-    const getReplies = (id) => {
-        return backendComments
-    }
+    const currentUser = localStorage.getItem("user")
+    const cheeseUserObject = JSON.parse(currentUser)
 
-    const addComment = (comment, postId) => {
-        console.log("addComment", comment, postId)
-        AddNewComment(comment, postId)
-        .then(newComment => {
-            setBackendComments([newComment, ...backendComments])
-            setActiveComment(null);
-        })
-    } 
+    const { postId } = useParams();
 
-    const deleteComment = (id) => {
-        if (window.confirm('Are you sure that you want to remove the comment?')) {
-            DeleteComment().then(() => {
-                const updatedBackendComments = backendComments.filter(
-                    (backendComment) => backendComment.id !== id);
-                setBackendComments(updatedBackendComments)
-            })
+    const fetchComments = async () => {
+        console.log(comments)
+        const response = await FetchCommentsByPostId(postId);
+        const commentsArray = await response.json();
+        setComments(commentsArray);
+        };
+    
+        useEffect(() => {
+        fetchComments();
+        }, [postId])
+
+    const userId = cheeseUserObject.Id
+
+    const [newComment, setNewComment] = useState({
+        comment: "",
+        userId: userId,
+        postId: postId
+    })
+
+    const handleSaveButtonClick = (e) => {
+        e.preventDefault();
+        console.log("You clicked the button!");
+
+        const commentToSendToAPI = {
+            comment: newComment.comment,
+            userId: newComment.userId,
+            postId: newComment.postId
+        };
+
+        const saveComment = async () => {
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(commentToSendToAPI),
+            };
+            await fetch(`https://localhost:7241/api/Comments`, options)
         }
+        saveComment();
+        setNewComment({
+            comment: '',
+            userId: userId,
+            postId: postId
+        });
     }
 
-    const updateComment = (id) => {
-        UpdateComment(id).then(() => {
-            const updatedBackendComments = backendComments.map(backendComment => {
-                if (backendComment.id === id) {
-                    return (backendComment)
-                }
-                return backendComment;
-            })
-            setBackendComments(updatedBackendComments)
-            setActiveComment(null);
-        })
-    }
+    return ( 
+        <>
+        <section className="comments-section">
+            <h5 className="comments-title">Comments</h5>
+            <article className="comments">
+                {comments.map((comment) => {
+                    return (
+                        <section className="comment" key={comment.id}>
+                            <section className="userComment">{comment.comment}</section>
+                            <section className="userName">--{comment.user.fullname}--</section>
+                            <Link to={`/comments/${comment.id}/edit`} className="editComment"><button className="editCommentButton">EDIT COMMENT</button></Link>
+                        </section>
+                    )
+                })}
+            </article>
 
-    useEffect(() => {
-        FetchCommentsByPostId().then(data => {
-            setBackendComments(data);
-            console.log(data)
-        })
-    }, [])
-
-    return (
-        <div className="comments">
-            <h3 className="comment-title">Comments</h3>
-            <div className="comment-form-title">Write comment</div>
-            <CommentForm submitLabel="Write" handleSubmit={addComment}/>
-            <div className="comments-container">
-                {rootComments.map(rootComment => (
-                    <Comment
-                        key={rootComment.id}
-                        comment={rootComment}
-                        replies={getReplies(rootComment.id)}
-                        cheeseUserObject={cheeseUserObject}
-                        deleteComment={deleteComment}
-                        updateComment={updateComment}
-                        activeComment={activeComment}
-                        setActiveComment={setActiveComment}
-                        addComment={addComment}
+            <form className="commentForm">
+                <fieldset>
+                    <div className="form-group">
+                    <label className="newCommentsHeading" htmlFor="description">
+                        Add New Comment:{" "}
+                    </label>
+                    <input
+                        required
+                        autoFocus
+                        type="text"
+                        className="commentInput"
+                        placeholder="Add your comment here!"
+                        value={newComment.comment}
+                        onChange={(evt) => {
+                        const copy = { ...newComment };
+                        copy.comment = evt.target.value;
+                        setNewComment(copy);
+                        }}
                     />
-                ))}
-            </div>
-        </div>
+                    </div>
+                </fieldset>
+
+                <button
+                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                    className="btn btn-primary"
+                >
+                    Save New Comment
+                </button>
+            </form>
+        </section>
+        </>
     )
 }
 
 export default PostComments;
-
-// export default function PostComments({post, cheeseUserObject, setPost}) {
-//     const [comment, setComment] = useState({
-//         comment: '',
-//         userName: ''
-//     })
-
-//     const { PostId } = useParams;
-
-
-//     useEffect(() => {
-//         const fetchComment = async () => {
-//             const response = await fetch (`https://localhost:7241/api/Comments/${PostId}`)
-//             const comments = await response.json()
-//             setComment(comments)
-//         }
-//             fetchComment()
-//             console.warn(comment)
-//     }, [])
-
-//     return (
-//     <ListGroup key={comment.PostId} className="comment">
-//       <CardTitle className="text-center">Comments</CardTitle>
-//       {comment.map((comment) => {
-//         return (
-//           <ListGroupItem className="comment-group">
-//               {comment.userName}
-//             :{comment.comment}
-//           </ListGroupItem>
-//         );
-//       })}
-//     </ListGroup>
-//     )
-// }
-
 

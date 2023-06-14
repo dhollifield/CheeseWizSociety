@@ -16,12 +16,14 @@ import {
   NavbarText,
 } from 'reactstrap';
 import "./NavBar.css"
+import { useNavigate } from 'react-router-dom';
 
 function NavBar(args)  {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const navigate = useNavigate();
   const onLogout = () => {
     logout.logout(navigate);
   };

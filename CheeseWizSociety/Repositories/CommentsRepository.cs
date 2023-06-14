@@ -16,7 +16,7 @@ public class CommentsRepository : BaseRepository, ICommentsRepository
             {
                 cmd.CommandText = @"
                             SELECT c.id AS CommentId
-                                  ,c.comment
+                                  ,c.Comment
                                   ,c.UserId
                                   ,c.PostId
                                   ,u.UserName
@@ -133,6 +133,7 @@ public class CommentsRepository : BaseRepository, ICommentsRepository
                         {
                             Id = DbUtils.GetInt(reader, "CommentId"),
                             Comment = DbUtils.GetString(reader, "Comment"),
+                            UserId = DbUtils.GetInt(reader, "Commenter"),
                             PostId = DbUtils.GetInt(reader, "PostId"),
                             User = new Users()
                             {

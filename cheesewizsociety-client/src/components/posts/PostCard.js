@@ -10,6 +10,8 @@ import {
 } from "reactstrap";
 import { formatInTimeZone } from "date-fns-tz";
 import "./AllPosts.css"
+// import PostComments from "./PostComments";
+
 
 export const PostCard = () => {
   const [post, setPost] = useState({
@@ -21,6 +23,7 @@ export const PostCard = () => {
       userName: " ",
     }
   });
+  const [comments, setComments] = useState([])
 
   const currentUser = localStorage.getItem("user")
   const cheeseUserObject = JSON.parse(currentUser)
@@ -29,15 +32,15 @@ export const PostCard = () => {
 
   const navigate = useNavigate();
 
-  const formatDateTime = (postDateTime) => {
-    const convertDateTime = new Date(postDateTime);
+  const formatPostDateTime = (postDateTime) => {
+    const convertDateTime = new Date(parseInt(postDateTime));
 
     return formatInTimeZone(
-        convertDateTime,
-          "America/Chicago",
-          "LLLL d, yyy"
-        );
-    };
+      convertDateTime,
+      "America/Chicago",
+      "LLLL d, yyyy 'at' h:mm a zzz"
+    );
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -46,13 +49,12 @@ export const PostCard = () => {
       setPost(post)
     }
     fetchPost(post)
-    console.warn(post)
   }, [])
 
   const editButton = (postId) => {
             console.log(id)
             return (
-              <Link to={`/editPost/${postId}`} post={post} setPost={setPost}>
+              <Link to={`/editPost/${postId}`}>
                 <button className="edit-post-button">
                   Edit Post
                 </button>                                       
