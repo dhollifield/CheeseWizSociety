@@ -43,6 +43,7 @@ public class PostsRepository : BaseRepository, IPostsRepository
                         ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
                         Caption = DbUtils.GetString(reader, "Caption"),
                         DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
+                        UserId = DbUtils.GetInt(reader, "UserId"),
                         User = new Users()
                         {
                             Id = DbUtils.GetInt(reader, "UserId"),
@@ -172,6 +173,7 @@ public class PostsRepository : BaseRepository, IPostsRepository
                         ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
                         Caption = DbUtils.GetString(reader, "Caption"),
                         DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
+                        UserId = DbUtils.GetInt(reader, "UserId"),
                         User = new Users()
                         {
                             Id = DbUtils.GetInt(reader, "UserId"),

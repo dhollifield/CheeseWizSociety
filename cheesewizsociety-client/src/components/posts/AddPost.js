@@ -14,19 +14,7 @@ export const AddPost = () => {
         caption: ''
     });
 
-    const [posts, setPosts] = useState([])
-
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const fetchPosts = async () => {
-    //         const postsArray = await FetchPosts()
-    //         setPosts(postsArray);
-    //     };
-    //     fetchPosts();
-    //     // console.warn(cheeseUserObject)
-    // },
-    // []);
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault();
@@ -53,7 +41,9 @@ export const AddPost = () => {
     }
 
     return (
-        <Form key={newPost.userId}>
+        <Form 
+            key={newPost.userId}
+            className="add-post-form">
             <FormGroup>
                 <Label for="title">
                     Title

@@ -69,7 +69,7 @@ import {
               UserName: userObj.fullName,
               FirebaseUid: userCredential.user.uid,
               ImageUrl: "",
-              type: "email",
+              Type: "email",
             };
 
             fetch(`https://localhost:7241/api/Users/${userAuth.FirebaseUid}`)
@@ -97,7 +97,7 @@ import {
           // Remove the user from localstorage
           localStorage.removeItem("user");
           // Navigate us back to home
-          navigate("/");
+          navigate("/login");
           console.log("Sign Out Success!");
         })
         .catch((error) => {
