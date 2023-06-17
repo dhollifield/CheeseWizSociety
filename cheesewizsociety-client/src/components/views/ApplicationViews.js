@@ -8,6 +8,7 @@ import { EditPost } from "../posts/EditPost";
 import { UserProfile } from "../user/UserProfile";
 import { AddRecipe } from "../recipes/AddRecipe";
 import { PostCard } from "../posts/PostCard";
+import { RecipeCard } from "../recipes/RecipeCard";
 
 
 export const ApplicationViews = () => {
@@ -23,11 +24,12 @@ export const ApplicationViews = () => {
 
           <Route path="/" element={ <Home /> } />
           <Route path="posts" element={ < AllPosts /> } />
-          <Route path="posts/:id" element={ <PostCard />} />
+          <Route path="posts/:postId" element={ <PostCard />} />
           <Route path="addNewPost" element={ <AddPost /> } />
           <Route path="editPost/:postId" element={ <EditPost /> } />
           <Route path="users/:id" element={<UserProfile /> }/>
           <Route path="recipes" element={ <Recipes /> } />
+          <Route path="recipes/:postId" element={ <RecipeCard />} />
           <Route path="addNewRecipe" element={ <AddRecipe /> } />
         
         </Route>

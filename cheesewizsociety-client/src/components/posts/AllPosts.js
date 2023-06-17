@@ -9,6 +9,8 @@ export const AllPosts = () => {
 
     const [posts, setPosts] = useState([])
 
+    console.log("ALL_POSTS_W/_COMMENTS", posts)
+    
     const formatDateTime = (postDateTime) => {
         const convertDateTime = new Date(postDateTime);
 
@@ -21,12 +23,11 @@ export const AllPosts = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-        const response = await fetch (`/Posts`)
+        const response = await fetch (`/Posts/GetPostsWithComments`)
         const posts = await response.json()
         setPosts(posts)
     }
     fetchPosts()
-    console.log(posts)
     }, []);    
 
     return (
