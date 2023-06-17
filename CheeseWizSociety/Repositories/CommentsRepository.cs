@@ -90,7 +90,7 @@ public class CommentsRepository : BaseRepository, ICommentsRepository
         }
     }
 
-    public List<Comments> GetCommentsByPostId(int PostId)
+    public List<Comments> GetCommentsByPostId(int postId)
     {
         using (var conn = Connection)
         {
@@ -112,7 +112,7 @@ public class CommentsRepository : BaseRepository, ICommentsRepository
 	                               ON c.PostId = p.id
 	                            WHERE c.PostId = @PostId";
 
-                cmd.Parameters.AddWithValue("@PostId", PostId);
+                cmd.Parameters.AddWithValue("@PostId", postId);
 
                 var reader = cmd.ExecuteReader();
 

@@ -1,39 +1,42 @@
 import {useEffect, useState} from "react";
 import { useParams, Link } from 'react-router-dom';
-import { 
-    FetchCommentsByPostId, 
-    AddNewComment,
-    DeleteComment, 
-    UpdateComment
-} from "../APIManager";
+import { ListGroup, ListGroupItem } from "reactstrap";
+import { FetchCommentsByPostId } from "../APIManager";
 
-function PostComments() {
-    const [comments, setComments] = useState({
-        comments: ''
-    })
 
-    const currentUser = localStorage.getItem("user")
-    const cheeseUserObject = JSON.parse(currentUser)
+function PostComments({id, post, setPost, cheeseUserObject}) {
+    const PostId = id;
 
-    const { postId } = useParams();
-
-    const fetchComments = async () => {
-        console.log(comments)
-        const response = await FetchCommentsByPostId(postId);
-        const commentsArray = await response.json();
-        setComments(commentsArray);
-        };
+    const [comments, setComments] = useState([
+        {
+          comment: "",
+          user: {
+            userName: "",
+          }
+        }
+      ])
     
-        useEffect(() => {
-        fetchComments();
-        }, [postId])
+    console.log("COMMENTS", comments)
+    console.log("USER", cheeseUserObject)
+    console.log("POST", post)
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            const commentsArray = await FetchCommentsByPostId(PostId)
+            setComments(commentsArray)
+            setPost()
+        }
+        fetchComments()
+    }, [PostId])
+    
 
     const userId = cheeseUserObject.Id
 
     const [newComment, setNewComment] = useState({
         comment: "",
+        userName: "",
         userId: userId,
-        postId: postId
+        postId: id
     })
 
     const handleSaveButtonClick = (e) => {
@@ -42,6 +45,7 @@ function PostComments() {
 
         const commentToSendToAPI = {
             comment: newComment.comment,
+            userName: newComment.userName,
             userId: newComment.userId,
             postId: newComment.postId
         };
@@ -59,60 +63,81 @@ function PostComments() {
         saveComment();
         setNewComment({
             comment: '',
+            userName: '',
             userId: userId,
-            postId: postId
+            postId: id
         });
     }
 
     return ( 
         <>
-        <section className="comments-section">
-            <h5 className="comments-title">Comments</h5>
-            <article className="comments">
+        {comments.postId === id ? (
+            <ListGroup key={comments.id}>
+              <>
                 {comments.map((comment) => {
-                    return (
-                        <section className="comment" key={comment.id}>
-                            <section className="userComment">{comment.comment}</section>
-                            <section className="userName">--{comment.user.fullname}--</section>
-                            <Link to={`/comments/${comment.id}/edit`} className="editComment"><button className="editCommentButton">EDIT COMMENT</button></Link>
-                        </section>
-                    )
+                  return (
+                    
+                    <ListGroupItem key={comment.id}>
+                      {comment.user.userName + ": " + comment.comment}
+                    </ListGroupItem>
+                  )
                 })}
-            </article>
-
-            <form className="commentForm">
-                <fieldset>
-                    <div className="form-group">
-                    <label className="newCommentsHeading" htmlFor="description">
-                        Add New Comment:{" "}
-                    </label>
-                    <input
-                        required
-                        autoFocus
-                        type="text"
-                        className="commentInput"
-                        placeholder="Add your comment here!"
-                        value={newComment.comment}
-                        onChange={(evt) => {
-                        const copy = { ...newComment };
-                        copy.comment = evt.target.value;
-                        setNewComment(copy);
-                        }}
-                    />
-                    </div>
-                </fieldset>
-
-                <button
-                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                    className="btn btn-primary"
-                >
-                    Save New Comment
-                </button>
-            </form>
-        </section>
+              </>
+            </ListGroup> 
+            ) : (
+            <></>
+            )}
         </>
     )
 }
 
 export default PostComments;
 
+
+
+    // <>
+    //     <section className="comments-section">
+    //         <h5 className="comments-title">Comments</h5>
+    //         <article className="comments">
+    //             {comments.map((comment) => {
+    //                 return (
+    //                     <section className="comment" key={comment.id}>
+    //                         <section className="userComment">{comment.comment}</section>
+    //                         <section className="userName">--{comment.user.fullname}--</section>
+    //                         <Link to={`/comments/${comment.id}/edit`} className="editComment"><button className="editCommentButton">EDIT COMMENT</button></Link>
+    //                     </section>
+    //                 )
+    //             })}
+    //         </article>
+
+    //         <form className="commentForm">
+    //             <fieldset>
+    //                 <div className="form-group">
+    //                 <label className="newCommentsHeading" htmlFor="description">
+    //                     Add New Comment:{" "}
+    //                 </label>
+    //                 <input
+    //                     required
+    //                     autoFocus
+    //                     type="text"
+    //                     className="commentInput"
+    //                     placeholder="Add your comment here!"
+    //                     value={newComment.comment}
+    //                     onChange={(evt) => {
+    //                     const copy = { ...newComment };
+    //                     copy.comment = evt.target.value;
+    //                     setNewComment(copy);
+    //                     }}
+    //                 />
+    //                 </div>
+    //             </fieldset>
+
+    //             <button
+    //                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+    //                 className="btn btn-primary"
+    //             >
+    //                 Save New Comment
+    //             </button>
+    //         </form>
+    //     </section>
+    //     </>

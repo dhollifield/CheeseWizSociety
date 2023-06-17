@@ -35,9 +35,9 @@ export const Recipes = () => {
 
     return (
         <>
-        <div className="add-post-button">
-            <Link to={`/addNewRecipe`} className="add-new-post-link">
-                <button className="add-new-post-button">ADD A RECIPE</button>
+        <div className="add-recipe-button">
+            <Link to={`/addNewRecipe`} className="add-new-recipe-link">
+                <button className="add-new-recipe-button">ADD A RECIPE</button>
             </Link>
         </div>
         <div className="input-group rounded">
@@ -55,10 +55,12 @@ export const Recipes = () => {
                     width: '18rem'
                 }}
                 >
-                <img
-                    alt="Card"
-                    src={recipe.imageUrl}
-                />
+                <a href={`/Recipes/${recipe.id}`}>
+                    <img
+                        alt="Card"
+                        src={recipe.imageUrl}
+                    />
+                </a>
                 <CardBody>
                     <CardTitle tag="h5">
                         {recipe.recipeName}
@@ -66,7 +68,7 @@ export const Recipes = () => {
                     <CardTitle tag="h6">
                         {recipe.recipeType.recipeType}
                     </CardTitle>
-                    <CardText>
+                    {/* <CardText>
                         {recipe.ingredients}
                     </CardText>
                     <CardText>
@@ -75,7 +77,7 @@ export const Recipes = () => {
                     Submitted by:  
                     <CardLink href="#">
                         {recipe.user.userName}
-                    </CardLink>
+                    </CardLink> */}
                 </CardBody>
                 </Card>
                 </>

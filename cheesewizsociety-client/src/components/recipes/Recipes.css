@@ -1,0 +1,73 @@
+.comment {
+    color: white;
+    background-color: grey;
+    border: 5px solid grey;
+}
+
+.comment-group {
+    background-color: lightgray;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+
+
+/* .comment-user {
+    color: white;
+    background-color: grey;
+} */
+
+.delete-post-button .delete-recipe-button {
+    margin: 20px;
+    color: white;
+    background-color: #DC3545;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.edit-post-button .edit-recipe-button {
+    margin: 20px;
+    color: black;
+    background-color: #FFC928;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.recipe-card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.recipe-preview-card {
+    margin: 20px;
+    padding: 10px;
+    min-width: 20rem;
+    border: 3px solid darkgray;
+    border-radius: 10px;
+    max-width: min-content;
+}
+
+.recipe-image {
+    position: sticky; 
+    min-width: fit-content;
+    height: 234px;
+    margin-bottom: 10px;
+}
+
+.recipe-text {
+    margin: 5px 10px;
+}
+
+.recipe-card {
+    max-width: 40%;
+    margin: auto;
+}
+
+.add-recipe-form {
+    margin: 30px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}

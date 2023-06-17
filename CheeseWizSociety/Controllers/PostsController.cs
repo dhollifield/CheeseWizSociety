@@ -41,7 +41,7 @@ namespace CheeseWizSociety.Controllers
             return Ok(post);
         }
 
-        [HttpGet("GetPostByIdWithComments")]
+        [HttpGet("GetPostByIdWithComments/{id}")]
         public IActionResult GetPostByIdWithComments(int id)
         {
             var posts = _postsRepository.GetPostByIdWithComments(id);
