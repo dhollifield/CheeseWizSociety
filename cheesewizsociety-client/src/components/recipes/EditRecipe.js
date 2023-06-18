@@ -1,38 +1,36 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FetchRecipes } from "../APIManager";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "./Recipes.css";
 
-export const AddRecipe = () => {
+export const EditRecipe = () => {
     const currentUser = localStorage.getItem("user")
     const cheeseUserObject = JSON.parse(currentUser)
 
-    const [newRecipe, update] = useState({
+    const [editedRecipe, setEditedRecipe] = useState({
         recipeName: '',
         imageUrl: '',
         recipeTypeId: 0,
-        recipeType: null,
         ingredients: '',
-        instructions: ''
+        instructions: '',
+        user: null
     });
 
-    const [recipes, setRecipes] = useState([])
-
     const [recipeTypes, setRecipeTypes] = useState([])
-
+    
+    const { recipeId } = useParams();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchRecipes = async () => {
-            const recipesArray = await FetchRecipes()
-            setRecipes(recipesArray);
-        };
-        fetchRecipes();
-        console.warn(recipes)
-    },
-    []);
-
+    useEffect(
+        () => {
+            const fetchRecipeById = async (recipeId) => {
+                const response = await fetch(`https://localhost:7241/api/Recipes/${recipeId}`)
+                const recipe = await response.json()
+                setEditedRecipe(recipe)
+              }
+              fetchRecipeById(recipeId)
+            }, []);
+    
     useEffect(
         () => {
             const fetchRecipeTypes = async () => {
@@ -43,47 +41,41 @@ export const AddRecipe = () => {
             fetchRecipeTypes()
         }, []);
 
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault();
-
-        const dataToSendToAPI = {
-            recipeName: newRecipe.recipeName,
-            imageUrl: newRecipe.imageUrl,
-            recipeTypeId: newRecipe.recipeTypeId,
-            ingredients: newRecipe.ingredients,
-            instructions: newRecipe.instructions,
-            userId: cheeseUserObject.Id
-        };
-
-        return fetch(`https://localhost:7241/api/Recipes`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSendToAPI)
-        })
-            .then((response) => response.json())
-            .then(() => {
-                navigate('/Recipes');
-            });
+    const handleSaveButtonClick = (e) => {
+        e.preventDefault();
+        
+        const saveRecipe = async () => {
+            editedRecipe.user = null;
+            const options = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(editedRecipe)
+            } 
+            await fetch (`https://localhost:7241/api/Recipes/${recipeId}`, options)
+            
+        }
+        saveRecipe(recipeId);
+        navigate(`/Recipes`)
     }
 
     return (
-        <Form key={newRecipe.userId}>
+        <Form key={editedRecipe.id}>
             <FormGroup>
-                <Label for="RecipeName">
+                <Label for="recipe-title">
                     Recipe Name
                 </Label>
                 <Input
-                    id="recipeName"
-                    name="recipeName"
-                    placeholder="Recipe Name"
+                    id="recipe-title"
+                    name="recipe-title"
+                    placeholder="What is the name of your recipe?"
                     type="text"
-                    value={newRecipe.recipeName}
+                    value={editedRecipe.recipeName}
                     onChange={(e) => {
-                        const copy = { ...newRecipe };
+                        const copy = { ...editedRecipe };
                         copy.recipeName = e.target.value;
-                        update(copy)
+                        setEditedRecipe(copy)
                     }}
                 />
             </FormGroup>        
@@ -96,28 +88,28 @@ export const AddRecipe = () => {
                 name="image"
                 placeholder="Image URL here, please"
                 type="text"
-                value={newRecipe.imageUrl}
+                value={editedRecipe.imageUrl}
                     onChange={(e) => {
-                        const copy = { ...newRecipe };
+                        const copy = { ...editedRecipe };
                         copy.imageUrl = e.target.value;
-                        update(copy)
+                        setEditedRecipe(copy)
                     }}
                 />
             </FormGroup>
             <FormGroup>
-                <Label for="recipeTypeSelect">
-                Select Recipe Type
+                <Label for="recipe-type-select-label">
+                    Select Recipe Category
                 </Label>
                 <Input
                     id="type-select"
                     name="select"
                     type="select"
                     className="recipe-type-select-dropdown"
-                    value={newRecipe.recipeTypeId}
+                    value={editedRecipe.recipeTypeId}
                     onChange={(e) => {
-                        const copy = { ...newRecipe };
+                        const copy = { ...editedRecipe };
                         copy.recipeTypeId = e.target.value;
-                        update(copy)
+                        setEditedRecipe(copy)
                     }}
                 >
                 <option value="" disabled selected>-- Choose --</option>
@@ -140,11 +132,11 @@ export const AddRecipe = () => {
                     type="textarea"
                     rows="5"
                     cols="10"
-                    value={newRecipe.ingredients}
+                    value={editedRecipe.ingredients}
                     onChange={(e) => {
-                        const copy = { ...newRecipe };
+                        const copy = { ...editedRecipe };
                         copy.ingredients = e.target.value;
-                        update(copy)
+                        setEditedRecipe(copy)
                     }}
                 />
             </FormGroup>
@@ -158,17 +150,18 @@ export const AddRecipe = () => {
                     type="textarea"
                     rows="5"
                     cols="10"
-                    value={newRecipe.instructions}
+                    value={editedRecipe.instructions}
                     onChange={(e) => {
-                        const copy = { ...newRecipe };
+                        const copy = { ...editedRecipe };
                         copy.instructions = e.target.value;
-                        update(copy)
+                        setEditedRecipe(copy)
                     }}
                 />
             </FormGroup>
             <Button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>
-                Submit Recipe
+                Save Recipe
             </Button>
         </Form>
     )
 }
+    

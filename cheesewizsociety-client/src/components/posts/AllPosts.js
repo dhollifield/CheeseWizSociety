@@ -17,7 +17,7 @@ export const AllPosts = () => {
         return formatInTimeZone(
             convertDateTime,
             "America/Chicago",
-            "LLLL d, yyy"
+            "LLLL d, yyyy"
         );
     };
 
@@ -32,6 +32,7 @@ export const AllPosts = () => {
 
     return (
         <>
+        <h1 className="post-page-title"> - POSTS - </h1>
             <div className="add-post-button">
                 <Link to={`/addNewPost`} className="add-new-post-link">
                     <button className="add-new-post-button">ADD A POST</button>

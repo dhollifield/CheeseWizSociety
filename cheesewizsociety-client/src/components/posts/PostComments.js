@@ -11,6 +11,7 @@ function PostComments({id, post, setPost, cheeseUserObject}) {
         {
           comment: "",
           user: {
+            id: 0,
             userName: "",
           }
         }
@@ -92,52 +93,3 @@ function PostComments({id, post, setPost, cheeseUserObject}) {
 }
 
 export default PostComments;
-
-
-
-    // <>
-    //     <section className="comments-section">
-    //         <h5 className="comments-title">Comments</h5>
-    //         <article className="comments">
-    //             {comments.map((comment) => {
-    //                 return (
-    //                     <section className="comment" key={comment.id}>
-    //                         <section className="userComment">{comment.comment}</section>
-    //                         <section className="userName">--{comment.user.fullname}--</section>
-    //                         <Link to={`/comments/${comment.id}/edit`} className="editComment"><button className="editCommentButton">EDIT COMMENT</button></Link>
-    //                     </section>
-    //                 )
-    //             })}
-    //         </article>
-
-    //         <form className="commentForm">
-    //             <fieldset>
-    //                 <div className="form-group">
-    //                 <label className="newCommentsHeading" htmlFor="description">
-    //                     Add New Comment:{" "}
-    //                 </label>
-    //                 <input
-    //                     required
-    //                     autoFocus
-    //                     type="text"
-    //                     className="commentInput"
-    //                     placeholder="Add your comment here!"
-    //                     value={newComment.comment}
-    //                     onChange={(evt) => {
-    //                     const copy = { ...newComment };
-    //                     copy.comment = evt.target.value;
-    //                     setNewComment(copy);
-    //                     }}
-    //                 />
-    //                 </div>
-    //             </fieldset>
-
-    //             <button
-    //                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-    //                 className="btn btn-primary"
-    //             >
-    //                 Save New Comment
-    //             </button>
-    //         </form>
-    //     </section>
-    //     </>

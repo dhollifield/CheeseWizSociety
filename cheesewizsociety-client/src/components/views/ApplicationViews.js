@@ -9,6 +9,7 @@ import { UserProfile } from "../user/UserProfile";
 import { AddRecipe } from "../recipes/AddRecipe";
 import { PostCard } from "../posts/PostCard";
 import { RecipeCard } from "../recipes/RecipeCard";
+import { EditRecipe } from "../recipes/EditRecipe";
 
 
 export const ApplicationViews = () => {
@@ -29,8 +30,9 @@ export const ApplicationViews = () => {
           <Route path="editPost/:postId" element={ <EditPost /> } />
           <Route path="users/:id" element={<UserProfile /> }/>
           <Route path="recipes" element={ <Recipes /> } />
-          <Route path="recipes/:postId" element={ <RecipeCard />} />
+          <Route path="recipes/:recipeId" element={ <RecipeCard />} />
           <Route path="addNewRecipe" element={ <AddRecipe /> } />
+          <Route path="editRecipe/:recipeId" element={ <EditRecipe /> } />
         
         </Route>
       </Routes>
