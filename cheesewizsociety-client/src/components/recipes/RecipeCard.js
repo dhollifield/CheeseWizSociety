@@ -10,18 +10,20 @@ import {
   ListGroup,
   ListGroupItem
 } from "reactstrap";
+import "./Recipes.css";
 
 export const RecipeCard = () => {
   const [recipe, setRecipe] = useState({
-    id: 0,
     recipeName: " ",
     imageUrl: " ",
     recipeType: {
+        id: 0,
         recipeType: " ",
     },
     ingredients: " ",
     instructions: " ",
     user: {
+        id: 0,
         userName: " ",
     }
   });
@@ -42,8 +44,7 @@ export const RecipeCard = () => {
       fetchRecipe()
     }, [recipeId])
 
-  const editButton = (recipeId) => {
-            console.log(recipeId)
+  const editButton = () => {
             return (
               <Link to={`/editRecipe/${recipeId}`}>
                 <button className="edit-recipe-button">
@@ -53,7 +54,7 @@ export const RecipeCard = () => {
             );
         };
     
-  const deleteButton = (recipeId) => {
+  const deleteButton = () => {
       const deleteRecipe = async () => {
       const options = {
         method: "DELETE",
@@ -77,20 +78,15 @@ export const RecipeCard = () => {
           >
             <img alt="Card" src={recipe.imageUrl} />
             <CardBody>
-              <CardTitle tag="h5">{recipe.title}</CardTitle>
+              <CardTitle tag="h4">{recipe.recipeName}</CardTitle>
+              <CardTitle tag="h6">Ingredients</CardTitle>
               <CardText>{recipe.ingredients}</CardText>
+              <CardTitle tag="h6">Instructions</CardTitle>
               <CardText>{recipe.instructions}</CardText>
               Posted by:
               <CardLink href={`/Users/${recipe.user.id}`}>
                 {recipe.user.userName}
               </CardLink>
-              {/* <PostComments
-                  name={post.comments}
-                  id={post.id}
-                  post={post}
-                  setPost={setPost}
-                  cheeseUserObject={cheeseUserObject}
-              /> */}
             </CardBody>
             <div className="recipe-buttons">
               {cheeseUserObject.Id === recipe.user.id ? (

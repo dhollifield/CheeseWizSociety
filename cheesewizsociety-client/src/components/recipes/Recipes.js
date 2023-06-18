@@ -5,11 +5,10 @@ import {
     CardGroup,
     Card,
     CardBody,
-    CardLink,
     CardTitle,
-    CardText
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import "./Recipes.css";
 
 export const Recipes = () => {
     const [recipes, setRecipes] = useState([])
@@ -31,59 +30,56 @@ export const Recipes = () => {
         } else {
             fetchRecipes()
         }
-    })
+    }, [])
 
     return (
         <>
+        <h1 className="recipe-page-title"> - RECIPES - </h1>
         <div className="add-recipe-button">
             <Link to={`/addNewRecipe`} className="add-new-recipe-link">
                 <button className="add-new-recipe-button">ADD A RECIPE</button>
             </Link>
         </div>
-        <div className="input-group rounded">
+        {/* <div className="input-group rounded">
             <input type="search" className="form-control rounded" placeholder="Search Recipes" aria-label="Search" aria-describedby="search-addon" />
             <span className="input-group-text border-0" id="search-addon">
                 <i className="fas fa-search">{searchCriterion}</i>
             </span>
-        </div>
+        </div> */}
+        <div className="recipe-card-container">
         <CardGroup>
             {recipes.map((recipe) => {
                 return (
                 <>
                 <Card
+                className="recipe-preview-card"
                 style={{
-                    width: '18rem'
+                    width: '25rem'
                 }}
                 >
                 <a href={`/Recipes/${recipe.id}`}>
                     <img
+                        className="recipe-preview-image"
                         alt="Card"
                         src={recipe.imageUrl}
+                        width="300"
+                        height="300"
                     />
                 </a>
                 <CardBody>
-                    <CardTitle tag="h5">
+                    <CardTitle tag="h4">
                         {recipe.recipeName}
                     </CardTitle>
                     <CardTitle tag="h6">
                         {recipe.recipeType.recipeType}
                     </CardTitle>
-                    {/* <CardText>
-                        {recipe.ingredients}
-                    </CardText>
-                    <CardText>
-                        {recipe.instructions}
-                    </CardText>
-                    Submitted by:  
-                    <CardLink href="#">
-                        {recipe.user.userName}
-                    </CardLink> */}
                 </CardBody>
                 </Card>
                 </>
                 )
             })}
         </CardGroup>
+        </div>
         </>
     )
 }

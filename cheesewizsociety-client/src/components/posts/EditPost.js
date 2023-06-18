@@ -102,7 +102,7 @@ export const EditPost = () => {
                 />
             </FormGroup>
             <Button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>
-                Submit Post
+                Save Post
             </Button>
         </Form>
     )
