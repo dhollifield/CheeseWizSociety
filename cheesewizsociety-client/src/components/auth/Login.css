@@ -1,3 +1,12 @@
+main {
+  background-image: url("./cheeseBackground.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646
+}
+
 .h1,
 h1 {
   font-size: 2.5rem;
@@ -44,7 +53,15 @@ fieldset {
 }
 
 .container--login {
-  text-align: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+}
+
+.login-logo {
+  margin: 80px;
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .form--login {
@@ -52,12 +69,31 @@ fieldset {
   z-index: 1;
   min-height: 25rem;
   min-width: 45rem;
-  background-color: hsla(0, 0%, 100%, 0.4);
+}
+
+.container--background {
+  background-color: hsla(0, 0%, 100%, 0.6);
   background-blend-mode: overlay;
   background-repeat: no-repeat;
+  margin: 80px;
+  padding: 20px;
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .button--close {
   position: relative;
   bottom: -2rem;
+}
+
+.banner {
+  background-color: #FDBC59;
+  color: black;
+  border: 3px solid black;
+  margin: 0 60px 60px 60px;
+  padding: 20px 40px;
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  font-size: 80px;
+  text-align: center;
 }

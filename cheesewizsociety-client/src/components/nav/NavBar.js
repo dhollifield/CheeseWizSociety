@@ -1,4 +1,4 @@
-import React, { navigate, useState } from 'react';
+import React, { navigate, useState, useEffect } from 'react';
 import { logout } from '../helpers/logout';
 import logoNoBackground from "./logoNoBackground.png";
 import {
@@ -25,8 +25,13 @@ function NavBar(args)  {
 
   const navigate = useNavigate();
   const onLogout = () => {
-    logout.logout(navigate);
+    logout.logout(navigate("/login"));
   };
+
+  const currentUser = localStorage.getItem("user")
+  const cheeseUserObject = JSON.parse(currentUser)
+
+  console.warn(cheeseUserObject)
 
   return (
     <>
@@ -69,7 +74,10 @@ function NavBar(args)  {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText className="navbar-text">A Society for Cheese Lovers</NavbarText>
+            <img 
+              className="navbar-profile-image"
+              alt="user-image"
+              src={cheeseUserObject.ImageUrl}/>
           <button type="submit" onClick={onLogout}>
             Logout
           </button>
