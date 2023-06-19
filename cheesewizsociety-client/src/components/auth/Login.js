@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { emailAuth } from "../helpers/emailAuth";
 import { googleAuth } from "../helpers/googleAuth";
+import logoNoBackground from "../nav/logoNoBackground.png"
 import "./Login.css";
 
 export const Login = () => {
@@ -31,6 +32,11 @@ export const Login = () => {
 
   return (
     <main className="container--login">
+      <img 
+        className="login-logo"
+        alt="logo"
+        src={logoNoBackground}/>
+      <div className="container--background">
       <section>
         <form className="form--login" onSubmit={onSubmitLoginEmail}>
           <h1>Cheese Wiz Society</h1>
@@ -73,6 +79,8 @@ export const Login = () => {
       <button type="submit" onClick={onSubmitLoginGoogle}>
         Let's Do It!
       </button>
+      </div>
+      <p className="banner">A SOCIETY FOR CHEESE LOVERS</p>
     </main>
   );
 };

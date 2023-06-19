@@ -48,7 +48,9 @@ export const EditPost = () => {
     }
 
     return (
-        <Form key={editedPost.id}>
+        <Form 
+            key={editedPost.id}
+            className="edit-post-form">
             <FormGroup>
                 <Label for="post-title">
                     Title

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FetchPosts } from "../APIManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "./AllPosts.css";
 
