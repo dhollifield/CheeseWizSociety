@@ -60,21 +60,18 @@
 To clone and run this application, you'll need [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/download/) which comes with [npm](https://www.npmjs.com/) installed on your computer. From your command line:
 
 <!-- `# Clone this repository` -->
-`$ git clone git@github.com:dhollifield/e20-capstone-shenanigames.git`
+`$ git clone git@github.com:dhollifield/CheeseWizSociety.git`
 
-<!-- `# Go into the repository -->
-`$ cd e20-capstone-shenanigames/`
+<!-- `# Go into the repository` -->
+`$ cd cheesewizsociety-client//`
 
 <!-- `# Install dependencies` -->
 `$ npm install`
 
-<!-- `# Go into the data folder and run database on localhost -->
-`$ cd data/`
-`$ json-server -p 8088 -w shenanigames-db.json`
+<!-- `# To run the database` -->
+For the data, run the CheeseWizSociety solution in Visual Studio.
 
-Ctrl+click on the link in the terminal to view the JSON in your browser.
-
-<!-- `# Navigate back and run the app` -->
+<!-- `# Run the app` -->
 `$ cd ..`
 `$ npm start`
 
