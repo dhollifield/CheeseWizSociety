@@ -9,7 +9,7 @@
 ### Home Page
 
 
-![Screenshot Home Page](../src/components/images/screenshot-home-page.png)
+![Screenshot Home Page](./src/components/images/screenshot-home-page.png)
 
 
 
