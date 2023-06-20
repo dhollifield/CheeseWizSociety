@@ -2,7 +2,7 @@
 
 # Cheese Wiz Society
 
-**Cheese Wiz Society** is social network for cheese lovers. Users can submit cheese-related posts or recipes. 
+**Cheese Wiz Society** is full CRUD, React frontend, C#/.NET backend social network app for cheese lovers. Users can submit cheese-related posts or recipes. 
 
 ## Current Features
 
