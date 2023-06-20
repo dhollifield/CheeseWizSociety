@@ -1,4 +1,4 @@
-![CheeseWizSociety logo](/src/components/auth/cheeseBackground.jpg)
+![CheeseWizSociety logo](./src/components/auth/cheeseBackground.jpg)
 
 # Cheese Wiz Society
 
@@ -16,35 +16,35 @@
 ### Posts Page
 
 
-![Screenshot Posts Page](/src/components/images/screenshot-posts-page.png)
+![Screenshot Posts Page](./src/components/images/screenshot-posts-page.png)
 
 
 
 ### Individual Post View
 
 
-![Screenshot Individual Post View](/src/components/images/screenshot-individual-post-view.png)
+![Screenshot Individual Post View](./src/components/images/screenshot-individual-post-view.png)
 
 
 
 ### Recipes Page
 
 
-![Screenshot Recipes Page](/src/components/images/screenshot-recipes-page.png)
+![Screenshot Recipes Page](./src/components/images/screenshot-recipes-page.png)
 
 
 
 ### Individual Recipe View
 
 
-![Screenshot Individual Recipe View](/src/components/images/screenshot-individual-recipe-view.png)
+![Screenshot Individual Recipe View](./src/components/images/screenshot-individual-recipe-view.png)
 
 
 
 ### User Profile View
 
 
-![Screenshot User Profile View](/src/components/images/screenshot-user-profile-view.png)
+![Screenshot User Profile View](./src/components/images/screenshot-user-profile-view.png)
 
 
 
