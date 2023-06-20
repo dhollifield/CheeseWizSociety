@@ -10,10 +10,7 @@ import {
   ListGroup,
   ListGroupItem
 } from "reactstrap";
-import { formatInTimeZone } from "date-fns-tz";
 import "./AllPosts.css"
-import PostComments from "./PostComments";
-// import PostComments from "./PostComments";
 
 
 export const PostCard = () => {

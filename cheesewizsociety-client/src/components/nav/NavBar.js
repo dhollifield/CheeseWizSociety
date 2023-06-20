@@ -31,8 +31,6 @@ function NavBar(args)  {
   const currentUser = localStorage.getItem("user")
   const cheeseUserObject = JSON.parse(currentUser)
 
-  console.warn(cheeseUserObject)
-
   return (
     <>
       <Navbar {...args}

@@ -8,8 +8,6 @@ export const AllPosts = () => {
     const cheeseUserObject = JSON.parse(currentUser)
 
     const [posts, setPosts] = useState([])
-
-    console.log("ALL_POSTS_W/_COMMENTS", posts)
     
     const formatDateTime = (postDateTime) => {
         const convertDateTime = new Date(postDateTime);

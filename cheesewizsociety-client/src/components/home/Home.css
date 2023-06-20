@@ -4,20 +4,6 @@
     font-size: 50px;
 }
 
-/* .cheese-carousel {
-    margin: auto;
-    width: auto;
-    display: flex; */
-
-    /* border: 10px solid black;
-    border-radius: 10px; */
-    /* display: flex;
-    flex-direction: column; */
-/* } */
-
-/* img {
-    align-content: center;
-} */
 .cheese-img {
     width: auto;
     margin-left: 750px;
@@ -33,10 +19,6 @@ div .carousel-item .carousel-item .active {
     object-fit: cover;
     object-position: center;
 } 
-
-/* .carousel-item .carousel-item .active {
-    align-items: center;
-} */
 
 .cheese-text {
     background: rgba(255, 255, 255, 0.2); 

@@ -29,7 +29,6 @@ export const AddRecipe = () => {
             setRecipes(recipesArray);
         };
         fetchRecipes();
-        console.warn(recipes)
     },
     []);
 
