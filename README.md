@@ -2,7 +2,7 @@
 
 # Cheese Wiz Society
 
-**Cheese Wiz Society** is full CRUD, React frontend, C#/.NET backend social network app for cheese lovers. Users can submit cheese-related posts or recipes. 
+**Cheese Wiz Society** is a full CRUD, React frontend, C#/.NET backend social network app for cheese lovers. Users can submit cheese-related posts or recipes. 
 
 ## Current Features
 
@@ -57,6 +57,9 @@
 
 ## How to Use
 
+<!-- `# To run the database` -->
+To run the backend, I used Visual Studio and SQL Server Management Studio. 
+
 To clone and run this application, you'll need [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/download/) which comes with [npm](https://www.npmjs.com/) installed on your computer. From your command line:
 
 <!-- `# Clone this repository` -->
@@ -68,11 +71,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com/) and [
 <!-- `# Install dependencies` -->
 `$ npm install`
 
-<!-- `# To run the database` -->
-For the data, run the CheeseWizSociety solution in Visual Studio.
-
 <!-- `# Run the app` -->
-`$ cd ..`
 `$ npm start`
 
 Runs the app in the development mode.\
