@@ -1,4 +1,4 @@
-![Screenshot Login View](/CheeseWizSociety/cheesewizsociety-client/src/components/images/screenshot-login-view.png)
+![Screenshot Login View](./CheeseWizSociety/cheesewizsociety-client/src/components/images/screenshot-login-view.png)
 
 # Cheese Wiz Society
 
